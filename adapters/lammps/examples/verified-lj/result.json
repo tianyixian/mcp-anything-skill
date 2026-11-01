@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "job_id": "9c6b127d-e413-4282-8ab7-586d81136adc",
+  "mode": "restricted-lj",
+  "parameters": {
+    "cells": 4,
+    "atoms": 256,
+    "steps": 100,
+    "temperature": 1.0,
+    "density": 0.8442,
+    "timestep": 0.005,
+    "seed": 87287
+  },
+  "submitted_at": 1793451361.344224,
+  "timeout_seconds": 60,
+  "max_output_bytes": 16777216,
+  "input_sha256": {
+    "input.in": "db1901ccb6dd513c735b329f9f154535f455dc3c1a1377409e0697c988185dda"
+  },
+  "status": "succeeded",
+  "started_at": 1793451363.0373573,
+  "finished_at": 1793451363.4744794,
+  "duration_seconds": 0.4371223449707031,
+  "exit_code": 0,
+  "error": null,
+  "captured_output_bytes": 3552,
+  "summary": {
+    "thermo_rows": 11,
+    "first": {
+      "Step": 0.0,
+      "Temp": 1.0,
+      "PotEng": -6.7733681,
+      "KinEng": 1.4941406,
+      "TotEng": -5.2792274,
+      "Press": -5.3944149,
+      "Volume": 303.24568,
+      "Density": 0.8442
+    },
+    "last": {
+      "Step": 100.0,
+      "Temp": 0.51995916,
+      "PotEng": -6.0623238,
+      "KinEng": 0.77689211,
+      "TotEng": -5.2854317,
+      "Press": -1.663363,
+      "Volume": 303.24568,
+      "Density": 0.8442
+    },
+    "created_atoms": 256,
+    "reported_total_wall_time": true,
+    "interpretation": "Engine execution evidence only. This is not a convergence or polymer Tg validation."
+  },
+  "engine": {
+    "version": 20250722,
+    "backend": "python-library",
+    "distribution_version": "2025.7.22.4.0"
+  },
+  "evidence_note": "Actual Python-library LAMMPS run through MCP stdio; local worker PID removed for publication. Logs are verbatim."
+}

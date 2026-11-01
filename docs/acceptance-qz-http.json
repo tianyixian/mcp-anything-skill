@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "label": "Qizhi-independent-notebook",
+  "started_at": "2026-11-01T07:16:42.387362+00:00",
+  "client_platform": "linux",
+  "python": "3.12.3",
+  "transport": "streamable-http",
+  "success": true,
+  "scope": "Real remote CPU engine; no local engine, polymer Tg, or cluster validation",
+  "stage": "complete",
+  "tools": [
+    "artifact_read",
+    "job_cancel",
+    "job_result",
+    "job_status",
+    "lammps_probe",
+    "lammps_run_lj",
+    "lammps_submit"
+  ],
+  "tool_count": 7,
+  "structured_output_schemas": true,
+  "probe": {
+    "available": true,
+    "backend": "executable",
+    "trusted_input_enabled": false
+  },
+  "invalid_numeric_input_rejected": true,
+  "trusted_input_rejected": true,
+  "small_run": {
+    "job_id": "d923dd0f-5969-40f4-bb82-174978a34d7c",
+    "status": "succeeded",
+    "engine": {
+      "backend": "executable",
+      "version": "LAMMPS (7 Feb 2024 - Update 1)"
+    },
+    "input_sha256": {
+      "input.in": "db1901ccb6dd513c735b329f9f154535f455dc3c1a1377409e0697c988185dda"
+    },
+    "summary": {
+      "thermo_rows": 11,
+      "first": {
+        "Step": 0.0,
+        "Temp": 1.0,
+        "PotEng": -6.7733681,
+        "KinEng": 1.4941406,
+        "TotEng": -5.2792274,
+        "Press": -5.3944149,
+        "Volume": 303.24568,
+        "Density": 0.8442
+      },
+      "last": {
+        "Step": 100.0,
+        "Temp": 0.51995916,
+        "PotEng": -6.0623238,
+        "KinEng": 0.77689211,
+        "TotEng": -5.2854317,
+        "Press": -1.663363,
+        "Volume": 303.24568,
+        "Density": 0.8442
+      },
+      "created_atoms": 256,
+      "reported_total_wall_time": true,
+      "interpretation": "Engine execution evidence only. This is not a convergence or polymer Tg validation."
+    }
+  },
+  "artifact_read": {
+    "name": "stdout.txt",
+    "total_bytes": 3551,
+    "returned_text_sha256": "d02e74227a1790ad86642bcc6b6347c1851cbcc73341f0e03cb33f38ceffc8c7",
+    "contains_engine_completion_marker": true,
+    "truncated": false
+  },
+  "connection_reconnect": {
+    "job_id": "04a5ecd3-8f1a-4889-9443-ae6625749655",
+    "observed_running_before_disconnect": true,
+    "scope": "HTTP client disconnected and reconnected; server was not restarted",
+    "new_http_client_and_mcp_session": true
+  },
+  "reconnect_run": {
+    "job_id": "04a5ecd3-8f1a-4889-9443-ae6625749655",
+    "status": "succeeded",
+    "engine": {
+      "backend": "executable",
+      "version": "LAMMPS (7 Feb 2024 - Update 1)"
+    },
+    "input_sha256": {
+      "input.in": "9c868cd14f321d87b849ecbf43816b0aaa3e48deb694542cc2b5b8e21d652638"
+    },
+    "summary": {
+      "thermo_rows": 11,
+      "first": {
+        "Step": 0.0,
+        "Temp": 1.0,
+        "PotEng": -6.7733681,
+        "KinEng": 1.4992676,
+        "TotEng": -5.2741005,
+        "Press": -5.3915295,
+        "Volume": 2425.9654,
+        "Density": 0.8442
+      },
+      "last": {
+        "Step": 5000.0,
+        "Temp": 0.54317648,
+        "PotEng": -6.0953602,
+        "KinEng": 0.81436688,
+        "TotEng": -5.2809933,
+        "Press": -1.7860802,
+        "Volume": 2425.9654,
+        "Density": 0.8442
+      },
+      "created_atoms": 2048,
+      "reported_total_wall_time": true,
+      "interpretation": "Engine execution evidence only. This is not a convergence or polymer Tg validation."
+    }
+  },
+  "finished_at": "2026-11-01T07:16:51.267946+00:00",
+  "endpoint_scope": "Different Qizhi CPU notebook, internal HTTP route; not the platform gateway.",
+  "platform_gateway_acceptance": false,
+  "cross_account_acceptance": false
+}

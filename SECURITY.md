@@ -1,0 +1,13 @@
+# Execution boundaries
+
+The adapter has two deployment modes: local, single-owner stdio and an explicitly selected Streamable HTTP service. Both execute with the service account's permissions. The package provides no user authentication or per-user job isolation; a network deployment requires platform-controlled access and a dedicated demonstration workspace. Do not expose it as an unauthenticated public or confidential multi-tenant service.
+
+The default LAMMPS demonstration accepts bounded numeric parameters and generates its own input. Custom script execution requires operator opt-in in stdio mode and is explicitly trusted code: LAMMPS itself supports file access and execution features. HTTP startup refuses `LAMMPS_ALLOW_TRUSTED_INPUT=1`; the listed `lammps_submit` tool remains disabled. Use OS/container isolation when scripts are not trusted. File-path checks on MCP artifact reads do not sandbox the LAMMPS language.
+
+HTTP binds to loopback by default and uses stateless Streamable HTTP with JSON responses. DNS rebinding protection is enabled: `LAMMPS_MCP_ALLOWED_HOSTS` accepts exact `host[:port]` values, and `LAMMPS_MCP_ALLOWED_ORIGINS` accepts exact HTTP(S) origins without paths. Wildcards are rejected. These checks do not authenticate a caller; an attacker able to reach an unprotected service can supply accepted headers. Route the service through the platform's access controls, and configure the actual forwarded authority/origin. The `/` and `/health` routes disclose service/version/readiness information and are not authentication gates or proof of engine readiness.
+
+HTTP clients share one workspace. Possession of a job UUID permits result/artifact access and cancellation; UUIDs are not a user authorization system. Use a fresh workspace without private research inputs for collaboration demonstrations. The package does not implement per-user quotas, request-rate limiting, TLS termination or platform routing. The existing parallel-job and workload bounds limit each instance but do not replace network access controls.
+
+The adapter records input hashes and job artifacts, supervises timeouts and cancellation, and limits returned output. Captured stdout/stderr have a shared byte limit. Files created directly by a trusted LAMMPS script are not covered by that capture limit; it is not a filesystem quota. Use OS resource limits for large workloads.
+
+Do not commit `.env`, tokens, private scripts, real workspace artifacts or internal deployment configuration. Report a potential issue privately to the repository maintainers once a repository and contact are configured; no contact address is invented here.

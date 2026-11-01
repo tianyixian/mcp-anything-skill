@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lammps-mcp"
+version = "0.2.0"
+description = "Durable LAMMPS jobs through stdio or Streamable HTTP MCP"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = ["mcp>=1.26,<2"]
+
+[project.optional-dependencies]
+engine = ["lammps==2025.7.22.4.0"]
+test = ["pytest>=8,<10", "pytest-asyncio>=0.24,<2", "ruff>=0.11,<1"]
+
+[project.scripts]
+lammps-mcp = "lammps_mcp.server:main"
+lammps-mcp-supervisor = "lammps_mcp.supervisor:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lammps_mcp"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+markers = ["integration: requires a working real LAMMPS installation"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"

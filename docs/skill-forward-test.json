@@ -1,0 +1,23 @@
+{
+  "fixture": "tiny-stats local Python library",
+  "transport": "stdio",
+  "protocol": "2025-11-25",
+  "generated_with": "skills/github-to-mcp/scripts/scaffold.py",
+  "inventory_executed": true,
+  "installed_separate_environment": true,
+  "tools": [
+    "mean"
+  ],
+  "input": [
+    1,
+    2,
+    3,
+    10
+  ],
+  "result": {
+    "mean": 4.0,
+    "count": 4
+  },
+  "empty_input_returns_mcp_error": true,
+  "scope": "Second manual skill application; fixture library, not a scientific-engine test"
+}

@@ -1,0 +1,4 @@
+* text=auto eol=lf
+# Retain native engine evidence exactly, including aligned trailing spaces.
+adapters/lammps/examples/verified-lj/stdout.txt -text -whitespace
+adapters/lammps/examples/verified-lj/stderr.txt -text -whitespace

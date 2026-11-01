@@ -1,0 +1,132 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-11-01T12:52:33.213758+00:00",
+  "kind": "real SQLite operations over MCP stdio, not mocked",
+  "platform": "Windows",
+  "python": "3.13.5",
+  "sqlite": "3.50.2",
+  "mcp_sdk": "1.30.0",
+  "tools": [
+    "list_tables",
+    "describe_table",
+    "preview_rows"
+  ],
+  "structured_schemas": true,
+  "calls": [
+    {
+      "tool": "list_tables",
+      "input": {
+        "limit": 1
+      },
+      "output": {
+        "tables": [
+          "materials"
+        ],
+        "next_after": "materials"
+      }
+    },
+    {
+      "tool": "list_tables",
+      "input": {
+        "after": "materials",
+        "limit": 1
+      },
+      "output": {
+        "tables": [
+          "notes"
+        ],
+        "next_after": null
+      }
+    },
+    {
+      "tool": "describe_table",
+      "input": {
+        "table": "materials"
+      },
+      "output": {
+        "table": "materials",
+        "columns": [
+          {
+            "name": "id",
+            "declared_type": "INTEGER",
+            "not_null_declared": false,
+            "primary_key_position": 1
+          },
+          {
+            "name": "name",
+            "declared_type": "TEXT",
+            "not_null_declared": true,
+            "primary_key_position": 0
+          },
+          {
+            "name": "density",
+            "declared_type": "REAL",
+            "not_null_declared": false,
+            "primary_key_position": 0
+          }
+        ],
+        "sqlite_version": "3.50.2"
+      }
+    },
+    {
+      "tool": "preview_rows",
+      "input": {
+        "table": "materials",
+        "limit": 2
+      },
+      "output": {
+        "table": "materials",
+        "columns": [
+          "id",
+          "name",
+          "density"
+        ],
+        "rows": [
+          [
+            1,
+            "aluminium",
+            2.7
+          ],
+          [
+            2,
+            "copper",
+            8.96
+          ]
+        ],
+        "row_limit": 2,
+        "truncated": true,
+        "truncation_reason": "row_limit",
+        "value_truncations": 0
+      }
+    }
+  ],
+  "rejected_inputs": [
+    {
+      "table": "materials",
+      "limit": 51
+    },
+    {
+      "table": "materials",
+      "limit": true
+    },
+    {
+      "table": "materials; DROP TABLE notes;--"
+    },
+    {
+      "table": "sqlite_schema"
+    }
+  ],
+  "database_hash_unchanged": true,
+  "limits": {
+    "rows": 50,
+    "structured_result_bytes": 32768,
+    "database_bytes": 67108864,
+    "text_value_bytes": 2048,
+    "query_progress_deadline_seconds": 1.0
+  },
+  "not_tested": [
+    "Remote HTTP deployment",
+    "Concurrent database writers",
+    "Adversarial SQLite files"
+  ]
+}

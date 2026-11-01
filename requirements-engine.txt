@@ -1,0 +1,3 @@
+# Optional real-engine validation; the adapter can use an existing LAMMPS executable.
+# Windows also requires the Microsoft MPI runtime.
+lammps==2025.7.22.4.0
