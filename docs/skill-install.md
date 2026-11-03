@@ -1,6 +1,6 @@
-# Install MCP Anything 0.3.0
+# Install MCP Anything 0.4.0
 
-Install the skill in your existing coding agent. Running the skill does not require LAMMPS, a separate generator service, or an additional model API key. The Python helpers require Python 3.11+; the protocol checker additionally needs the official MCP Python SDK (`python -m pip install 'mcp>=1.26,<2'`). The target software may have its own installation and authentication requirements.
+Install the skill in your existing coding agent. Running the skill does not require LAMMPS, REA, a separate generator service, or an additional model API key. REA is used only when optional investigation is useful; a browser, Excel or other target runtime is needed only for its corresponding adapter. The Python helpers require Python 3.11+; the protocol checker additionally needs the official MCP Python SDK (`python -m pip install 'mcp>=1.26,<2'`). The target software may have its own installation and authentication requirements.
 
 ## From the repository
 
@@ -26,11 +26,11 @@ For Claude Code, substitute `.claude/skills` for `.codex/skills`. Other hosts mu
 
 ## From the standalone ZIP
 
-Extract `mcp-anything-skill-0.3.0.zip`. Copy the extracted `mcp-anything/` folder, including its scripts, references and assets, into your skills directory. Do not nest the entire ZIP directory there. The result should be `.../skills/mcp-anything/SKILL.md`.
+Extract `mcp-anything-skill-0.4.0.zip`. Copy the extracted `mcp-anything/` folder, including its scripts, references and assets, into your skills directory. Do not nest the entire ZIP directory there. The result should be `.../skills/mcp-anything/SKILL.md`.
 
 Open a new agent session, then ask:
 
-> Use $mcp-anything to turn this software into MCP tools. The source is … and I need … . Implement and test a real operation, then give me client configuration and a short usage guide.
+> Use $mcp-anything to turn this software into MCP tools. The software name, installation path or website is … and I need … . Implement and test a real operation, then give me client configuration and a short usage guide.
 
 In hosts that use slash-style skill invocation, use their normal skill selector or ask for “MCP Anything” by name. The skill's instructions are host-neutral; discovery syntax belongs to the host.
 
@@ -40,4 +40,4 @@ The old name was `github-to-mcp`, under the MCP Everything project. The new cano
 
 ## First checks
 
-Ask the agent to inspect a small local repository and select one useful operation. The inventory helper must not execute that repository. A generated `adapter_info` returning `adapter_ready: false` is an expected unfinished scaffold, not a successful conversion. Completion requires a real tool call with an observable result. The full repository includes a lightweight SQLite example and the LAMMPS adapter; the standalone skill ZIP does not bundle those runtimes.
+Ask the agent to locate an installed program or inspect a small local repository and select one useful operation. `discover_target.py` accepts names, paths and URLs, reports candidate routes, and does not launch the target or fetch URLs. The inventory helper must not execute that repository. A generated `adapter_info` returning `adapter_ready: false` is an expected unfinished scaffold, not a successful conversion. Completion requires a real tool call with an observable result. The full repository includes SQLite, FFmpeg, Excel COM and browser examples plus the LAMMPS adapter; the standalone skill ZIP does not bundle those runtimes.

@@ -1,0 +1,117 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-11-03T09:33:23.761748+00:00",
+  "kind": "installed FFmpeg executable via real MCP stdio calls; no repository source used",
+  "platform": "Windows",
+  "python": "3.13.5",
+  "mcp_sdk": "1.30.0",
+  "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+  "tools": [
+    "inspect_audio",
+    "convert_audio"
+  ],
+  "calls": [
+    {
+      "tool": "inspect_audio",
+      "input": {
+        "input_file": "tone.wav"
+      },
+      "output": {
+        "file": "tone.wav",
+        "format": "wav",
+        "codec": "pcm_s16le",
+        "sample_rate_hz": 16000,
+        "channels": 1,
+        "duration_seconds": 1.0,
+        "file_bytes": 32044
+      }
+    },
+    {
+      "tool": "convert_audio",
+      "input": {
+        "input_file": "tone.wav",
+        "output_file": "tone.flac"
+      },
+      "output": {
+        "input": {
+          "file": "tone.wav",
+          "format": "wav",
+          "codec": "pcm_s16le",
+          "sample_rate_hz": 16000,
+          "channels": 1,
+          "duration_seconds": 1.0,
+          "file_bytes": 32044
+        },
+        "output": {
+          "file": "tone.flac",
+          "format": "flac",
+          "codec": "flac",
+          "sample_rate_hz": 16000,
+          "channels": 1,
+          "duration_seconds": 1.0,
+          "file_bytes": 15192
+        },
+        "input_sha256": "a6c41754cc16ef9ddac86f2e640bf085d002237668adbc24964ff7199851ba9a"
+      }
+    },
+    {
+      "tool": "inspect_audio",
+      "input": {
+        "input_file": "tone.flac"
+      },
+      "output": {
+        "file": "tone.flac",
+        "format": "flac",
+        "codec": "flac",
+        "sample_rate_hz": 16000,
+        "channels": 1,
+        "duration_seconds": 1.0,
+        "file_bytes": 15192
+      }
+    }
+  ],
+  "rejected_inputs": [
+    {
+      "tool": "convert_audio",
+      "input": {
+        "input_file": "tone.wav",
+        "output_file": "tone.flac"
+      }
+    },
+    {
+      "tool": "inspect_audio",
+      "input": {
+        "input_file": "../tone.wav"
+      }
+    },
+    {
+      "tool": "inspect_audio",
+      "input": {
+        "input_file": "https://example.com/audio.wav"
+      }
+    },
+    {
+      "tool": "inspect_audio",
+      "input": {
+        "input_file": "tone.wav:alternate"
+      }
+    },
+    {
+      "tool": "convert_audio",
+      "input": {
+        "input_file": "tone.wav",
+        "output_file": "../outside.flac"
+      }
+    }
+  ],
+  "input_hash_unchanged": true,
+  "existing_output_hash_unchanged": true,
+  "decoded_pcm_sha256": "53d3eeb3d46d9f29cd9e705514de6d9c3309258635737f08e96af409dd5c7393",
+  "decoded_samples": 16000,
+  "lossless_pcm_match": true,
+  "not_tested": [
+    "Malicious media",
+    "Concurrent external workspace writers",
+    "Remote HTTP deployment"
+  ]
+}

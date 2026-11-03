@@ -1,0 +1,88 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-11-03T09:57:04.531730+00:00",
+  "kind": "real MCP stdio and owned headless browser against a disposable local notes application",
+  "platform": "Windows",
+  "python": "3.13.5",
+  "mcp_sdk": "1.30.0",
+  "runtime": {
+    "browser": "156.0.4314.58",
+    "playwright": "1.62.1"
+  },
+  "tools": [
+    "list_notes",
+    "create_note"
+  ],
+  "calls": [
+    {
+      "tool": "list_notes",
+      "output": {
+        "notes": [],
+        "reloaded": true
+      }
+    },
+    {
+      "tool": "create_note",
+      "input": {
+        "title": "科研验收 note"
+      },
+      "output": {
+        "note": {
+          "id": 1,
+          "title": "科研验收 note"
+        },
+        "confirmed_in_page": true
+      }
+    },
+    {
+      "tool": "list_notes",
+      "output": {
+        "notes": [
+          {
+            "id": 1,
+            "title": "科研验收 note"
+          }
+        ],
+        "reloaded": true
+      }
+    }
+  ],
+  "rejected_inputs": [
+    {
+      "kind": "str",
+      "length": 0
+    },
+    {
+      "kind": "str",
+      "length": 1
+    },
+    {
+      "kind": "str",
+      "length": 17
+    },
+    {
+      "kind": "str",
+      "length": 10
+    },
+    {
+      "kind": "str",
+      "length": 121
+    },
+    {
+      "kind": "int",
+      "length": null
+    }
+  ],
+  "invalid_application_request_rejected": true,
+  "rejected_requests_preserve_store": true,
+  "new_browser_reads_persisted_note": true,
+  "owned_worker_graceful_exit": 0,
+  "not_tested": [
+    "Third-party websites",
+    "Personal authentication/login recovery",
+    "Desktop UI automation",
+    "Site version changes",
+    "Concurrent external writers",
+    "Forced host termination"
+  ]
+}

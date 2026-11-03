@@ -1,36 +1,52 @@
-# MCP Anything Skill 0.3.0 — validation
+# MCP Anything Skill 0.4.0 — validation
 
-Validation performed on 2026-11-01. Local environment: Windows, Python 3.13.5, official MCP Python SDK 1.30.0. SQLite acceptance used SQLite 3.50.2. The converter skill is version 0.3.0; the LAMMPS adapter remains version 0.2.0.
+Validation performed on 2026-11-03. Local host: Windows, Python 3.13.5, official MCP Python SDK 1.30.0. The converter skill is 0.4.0; the LAMMPS adapter remains 0.2.0. The [0.3.0 validation record](skill-validation-0.3.0.md) is preserved separately.
 
-The final combined local suite completed with **75 passed, 7 skipped in 51.01 seconds**. All seven skips require Windows symlink-creation privileges unavailable to this account; actual Windows junction tests passed. Real LAMMPS stdio and HTTP tests passed in this environment. Ruff correctness checks and the skill metadata validator also passed.
+The final combined local suite completed with **123 passed, 9 skipped in 94.46 seconds**. All nine skips require Windows symlink-creation privileges unavailable to this account; actual Windows junction tests passed. FFmpeg, Excel COM, the browser example, SQLite and the installed LAMMPS engine were exercised. Ruff correctness checks and the skill metadata validator passed.
 
-## What was exercised
+## New interfaces actually exercised
 
-- The skill-creator metadata validator passed for `mcp-anything`.
-- The inventory and scaffold tests checked that repository source is not executed, existing work is preserved, and linked directories cannot escape the selected tree. Actual Windows junction tests passed; symlink tests require privileges unavailable in this account.
-- The generic stdio checker ran real MCP sessions against small fixture servers. Its 15 focused tests checked declared successful calls, expected errors, mismatch detection, missing tools, environment inheritance, process failure, timeout and output preservation. A shutdown-timeout regression ensures that a previously successful discovery cannot produce a success exit code after cleanup fails. These fixtures test the checker, not an external software integration.
-- An independent agent used the revised skill to implement the SQLite example from a request for table discovery, column inspection and bounded read-only row previews. Real MCP calls returned the known sample rows, invalid requests were rejected, and the database file hash remained unchanged. Its checked-in acceptance record includes Python, SQLite and SDK versions. This was a scoped engineering reuse check, not a comparative benchmark.
-- SQLite's 9 tests include JSON-escaped table/column names and an empty table whose metadata alone exceeds the output bound. All three tools enforce the final serialized-result limit.
-- Release tests verified that a skill-only archive builds without adapter sources or a LAMMPS wheel, excludes deployment notes and runtime directories, preserves component versions, verifies hashes, and refuses links/junctions.
+| Interface | Real software result | Evidence |
+| --- | --- | --- |
+| Software discovery | Found installed FFmpeg via PATH and Excel via Windows App Paths without launching them; directory and URL inputs stayed unverified | Helper tests and independent forward review; Windows batch-launcher omission found and fixed |
+| CLI | FFmpeg 9.0.2 converted a one-second WAV to FLAC through MCP; 16,000 decoded PCM samples matched exactly | `examples/ffmpeg/validation.json` |
+| Desktop automation | Excel 16.0 created, read and saved a changed copy of a disposable workbook through MCP; source hash remained unchanged and owned processes closed | `examples/excel/validation.json` |
+| Browser | Playwright Core 1.62.1 and Edge 156.0.4314.58 created/read notes through MCP and the actual UI; refresh and a new browser read the saved state | `examples/browser/validation.json` |
+| Optional REA | REA 6.8.0 with Node 24.22.1 was connected through MCP; static inspection checked PE header observations for three installed FFmpeg binaries | `docs/rea-validation.json` |
+
+The Excel example needs PowerShell 7. PDF export did not complete acceptance on this host and is not exposed. The browser target is an original local demonstration app, not an independently maintained third-party website. REA inspection does not run the target program or establish a callable interface by itself.
+
+An independent browser review found that a cancelled call could leave a late response in the worker stream and that a timeout prevented subsequent recovery. Both were fixed: the affected worker is discarded, the next explicit call can create a new session, and writes are never automatically replayed. Five subprocess regressions cover cancellation, timeout, incorrect response identity, invalid JSON and EOF; an independent follow-up confirmed all five pass. Real browser canary tests also check that direct cross-origin requests and redirects do not reach a second server.
+
+## Installation and packaging
+
+A new isolated Python environment was populated from `requirements-dev.lock` with hash verification. Real FFmpeg and SQLite acceptance passed in that environment. The browser dependency was separately installed with `npm ci --ignore-scripts` from its pinned lockfile, followed by real browser acceptance. These checks do not claim a clean Office installation; the licensed Excel and media/browser executables were already installed on the host.
+
+Release tests check independent skill packaging, source/archive boundaries, link refusal, stable hashes and unchanged adapter versioning. The release builder excludes `node_modules`, environments, workspace data and private deployment notes. Archive extraction and installed-skill discovery are checked during packaging.
 
 ## Reproduce
 
-From the full source repository, using Python 3.11+:
+From the full project using Python 3.11+:
 
 ```sh
 python -m pip install --require-hashes -r requirements-dev.lock
 python -m pip install --no-deps -e adapters/lammps
-python -m pytest skills/mcp-anything/tests adapters/lammps/tests examples scripts/tests -q
-python examples/sqlite/verify.py
+npm ci --ignore-scripts --prefix examples/browser
+python -m pytest skills/mcp-anything/tests adapters/lammps/tests examples scripts/tests -q -ra
+python examples/ffmpeg/verify.py
+python examples/excel/verify.py
+python examples/browser/verify.py --node /absolute/node --browser /absolute/chrome
 python scripts/build_release.py --target skill --output dist
 ```
 
-For the standalone skill ZIP, its helper tests are in `mcp-anything/tests/`. Install `pytest`, `pytest-asyncio` and the MCP SDK in an isolated environment, then run `python -m pytest mcp-anything/tests --asyncio-mode=auto`. The ZIP does not contain the SQLite example, LAMMPS runtime or full repository development lock. The full source repository contains those examples and the locked test dependencies.
+Install each optional target runtime separately. For pytest to exercise the browser, set `BROWSER_MCP_NODE` and `BROWSER_MCP_EXECUTABLE` to actual executable paths. The Excel verifier requires Windows, PowerShell 7 and an activated desktop Excel installation. Missing target runtimes cause explicit test skips, not fabricated acceptance. Consult each example README for its supported input scope and prerequisites.
 
-## Evidence boundaries
+The standalone skill ZIP contains the discovery/inventory/scaffold/checker scripts, their tests and conditional references. It does not bundle the example apps, target runtimes or REA. Run its helper tests after installing `pytest`, `pytest-asyncio` and the MCP SDK in an isolated environment.
 
-Historical LAMMPS real-engine tests cover Windows/Linux, stdio, platform HTTP and a running job surviving client reconnection. They are recorded separately in the full source repository's `docs/validation.md`; they are not new scientific results from the 0.3.0 skill work. Cross-account platform access was not established.
+## Scope of the evidence
 
-No claim is made that every GitHub repository is convertible, that every client UI was exercised, or that automatic OpenAPI/GraphQL/gRPC generation exists. The SQLite example is intended for trusted local database snapshots; adversarial files, concurrent writers and remote deployment are outside its acceptance scope. The external similarly named project's source was reviewed, but its generator was not executed or benchmarked.
+The new work proves specific installed-software and browser operations, and one real optional REA inspection. General desktop UI automation, all Office features, third-party website login recovery, arbitrary binary reverse engineering and universal conversion success are not established. No controlled comparison against other MCP generators was performed.
 
-GitHub Actions is configured for Windows/Linux and Python 3.11/3.13. Consult the repository's actual run for CI status; the workflow file alone is not a passing run. Real LAMMPS integration tests explicitly skip when the separately installed engine is unavailable.
+Historical LAMMPS deployment and real-engine evidence remains in `docs/validation.md`. No new scientific material-property results or cross-account platform access claims are made. Existing deployed runtime behavior is unchanged.
+
+GitHub Actions targets Windows/Linux and Python 3.11/3.13. It installs the optional browser example dependency, enables browser integration when a supported executable is present, and installs FFmpeg on Linux. The actual run determines CI status; the workflow definition is not evidence of a completed run.

@@ -21,8 +21,18 @@ Replace the illustrative tool with a real useful operation. `match: "exact"` req
 
 For a computation adapter, preserve a real minimal input and an output that demonstrates execution. Check a software-specific quantity (for example, LAMMPS atom count and final timestep), not only process exit code. Record software version and tolerances where numbers are compared. Scientific validity beyond the example is a separate claim.
 
+For an installed application, verify against the actual installed program rather than an API-shaped fixture. Use disposable test documents/data. Reopen or independently inspect saved/exported artifacts, verify the intended change and check preservation of unrelated input. For browser/UI workflows, exercise the named operation through MCP and inspect its final application state. Record the tested app build/site revision when available, OS, session mode and relevant locale. A selector match, successful click or screenshot is not by itself task acceptance.
+
+Test repeat calls and cleanup for stateful automation. Establish what happens after login expiry, a missing control/dialog, a lost response or a second client when those conditions are relevant to the adapter. Read state before retrying a timed-out write, and report an uncertain outcome if it cannot be resolved. Check that closing the adapter leaves user-owned application sessions and documents intact. Do not advertise unattended, headless or concurrent use from a single interactive test.
+
+When REA helped investigate the target, record the useful observations separately from adapter acceptance. A discovery report, decompilation, captured response or replayed AgentEnv result is analysis/fixture evidence. A live integration needs an actual call to the original application. If REA is a runtime dependency, test that path and its missing-provider error; otherwise verify the adapter with REA absent from its runtime configuration.
+
 Test relevant negative cases: malformed schema, missing engine, path escape, disabled trusted operations, upstream error, timeout and cancellation. Long-job adapters also need restart/reconnect coverage while a job is running. Use controlled fixture executables for deterministic failures when needed, and label fixture evidence explicitly.
 
 Package only selected source, configuration examples, docs and tests. Exclude virtual environments, engine binaries unless intentionally licensed/distributed, private inputs, logs containing deployment details, credentials and full chat transcripts. Include licenses, dependency constraints, hashes and instructions to repeat tests. Build an installable package and check it in a clean environment.
 
+Keep browser profiles, authenticated storage state, raw network recordings and user documents out of release archives. Separate clean-environment installation checks from real application tests: a disposable Python environment can prove packaging while the actual desktop program remains an external prerequisite. State that prerequisite and the exact tested host instead of claiming the archive is self-contained.
+
 Report local results separately from configured CI: adding a workflow is not evidence that all matrix platforms passed. Make any unsupported platforms and omitted operating modes visible. A generated readiness probe is not a working conversion.
+
+Summarize each requested capability as discovered, implemented, verified or blocked. A successful small operation proves that operation on the recorded environment; it does not establish arbitrary software conversion or full coverage of the application.

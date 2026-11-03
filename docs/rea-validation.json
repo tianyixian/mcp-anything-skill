@@ -1,0 +1,93 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-11-03T09:46:03.396424+00:00",
+  "rea_version": "6.8.0",
+  "node_version": "24.22.1",
+  "host": "Windows",
+  "kind": "real REA MCP inspection of an installed FFmpeg directory; static analysis only",
+  "tool": "inspect_desktop_application",
+  "files": [
+    {
+      "path": "ffmpeg.exe",
+      "read_status": "examined",
+      "facts": [
+        {
+          "kind": "native-image-header",
+          "offset": 128,
+          "value": {
+            "format": "pe",
+            "machine": 34404
+          }
+        }
+      ]
+    },
+    {
+      "path": "ffplay.exe",
+      "read_status": "examined",
+      "facts": [
+        {
+          "kind": "native-image-header",
+          "offset": 128,
+          "value": {
+            "format": "pe",
+            "machine": 34404
+          }
+        }
+      ]
+    },
+    {
+      "path": "ffprobe.exe",
+      "read_status": "examined",
+      "facts": [
+        {
+          "kind": "native-image-header",
+          "offset": 128,
+          "value": {
+            "format": "pe",
+            "machine": 34404
+          }
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "status": "complete-within-scan",
+    "entries_examined": 3,
+    "files_probed": 3,
+    "bytes_read": 1020,
+    "symlinks_not_followed": 0,
+    "special_entries_omitted": 0,
+    "limits": {
+      "max_entries": 20000,
+      "max_probe_bytes": 8388608
+    }
+  },
+  "protocol_checker": {
+    "schema_version": 1,
+    "ok": true,
+    "protocol_connected": true,
+    "validation_level": "declared_calls_checked",
+    "tool_count": 229,
+    "case_count": 1,
+    "cases": [
+      {
+        "index": 0,
+        "ok": true
+      }
+    ],
+    "limitations": [
+      "Checks only the declared assertions; callers must choose meaningful real-software cases.",
+      "No server identity, input, output, credential, or environment values are retained.",
+      "The session timeout permits additional SDK process-cleanup time; it is not a hard wall-clock limit."
+    ]
+  },
+  "target_executed_by_rea": false,
+  "no_native_analysis_engine_required": true,
+  "limitations": [
+    "Proves this installed-release static directory inspection through MCP only.",
+    "Does not establish arbitrary binary decompilation, hidden API discovery or target execution.",
+    "FFmpeg execution is verified separately by examples/ffmpeg/validation.json.",
+    "REA was installed in a task-local environment without global agent registration; it is not bundled or required by generated FFmpeg/Excel/browser adapters.",
+    "The source evidence contains local paths and remains private; this file is a selected public summary."
+  ]
+}

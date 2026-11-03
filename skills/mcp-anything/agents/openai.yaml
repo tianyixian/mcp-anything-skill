@@ -1,4 +1,4 @@
 interface:
   display_name: "MCP Anything"
-  short_description: "Turn existing software into tested, usable MCP tools"
-  default_prompt: "Use $mcp-anything to turn this software into a working MCP integration with real execution evidence and an agent usage guide."
+  short_description: "Connect installed apps, websites and code to MCP"
+  default_prompt: "Use $mcp-anything with this software name, installation path or website and my task; find a usable interface, implement MCP tools, and verify the real results."

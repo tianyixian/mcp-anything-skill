@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0 — Installed software and websites
+
+- Accept software names, installation paths and websites alongside source repositories; choose an existing MCP, API, CLI or automation interface before UI automation.
+- Add bounded software discovery through PATH, Windows App Paths and directory inventories. Discovery does not launch target software or fetch URLs, and reports only candidate interfaces.
+- Add optional REA investigation guidance, keeping analysis dependencies separate from the generated adapter's actual runtime dependencies.
+- Add runnable FFmpeg, Excel COM and browser examples, with real MCP verification and explicit environment requirements.
+- Record discovered, implemented, verified and blocked operations separately; verify state/artifact changes after writes and document session ownership.
+
+The LAMMPS adapter remains 0.2.0. Previously published archives are retained unchanged.
+
 ## 0.3.0 — MCP Anything Skill
 
 - Rename the converter to `mcp-anything` and the public repository to `mcp-anything-skill`.

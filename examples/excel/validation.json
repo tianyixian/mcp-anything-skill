@@ -1,0 +1,178 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-11-03T09:55:04.107142+00:00",
+  "kind": "real installed Microsoft Excel COM operations through MCP stdio; no mocks or source checkout",
+  "platform": "Windows",
+  "python": "3.13.5",
+  "mcp_sdk": "1.30.0",
+  "excel_version": "16.0",
+  "tools": [
+    "create_workbook",
+    "read_cells",
+    "write_cells_copy"
+  ],
+  "calls": [
+    {
+      "tool": "create_workbook",
+      "input": {
+        "output": "sample.xlsx",
+        "values": [
+          [
+            "material",
+            "density",
+            "note"
+          ],
+          [
+            "copper",
+            8.96,
+            "=1+1"
+          ],
+          [
+            "aluminium",
+            2.7,
+            true
+          ]
+        ]
+      },
+      "output": {
+        "file": "sample.xlsx",
+        "sheet": "Data",
+        "excel_version": "16.0",
+        "bytes": 9127,
+        "sha256": "0d481d4d7cbc94cb01c8fae72e996758aebf390d31ce093dd5004c720bacc4e7",
+        "owned_process_closed": true
+      }
+    },
+    {
+      "tool": "read_cells",
+      "input": {
+        "workbook": "sample.xlsx",
+        "address": "A1:C3"
+      },
+      "output": {
+        "file": "sample.xlsx",
+        "sheet": "Data",
+        "address": "A1:C3",
+        "values": [
+          [
+            "material",
+            "density",
+            "note"
+          ],
+          [
+            "copper",
+            8.96,
+            "=1+1"
+          ],
+          [
+            "aluminium",
+            2.7,
+            true
+          ]
+        ],
+        "excel_version": "16.0",
+        "truncated_cells": 0,
+        "owned_process_closed": true
+      }
+    },
+    {
+      "tool": "write_cells_copy",
+      "input": {
+        "workbook": "sample.xlsx",
+        "output": "updated.xlsx",
+        "start_cell": "B2",
+        "values": [
+          [
+            9.1
+          ]
+        ]
+      },
+      "output": {
+        "file": "updated.xlsx",
+        "sheet": "Data",
+        "excel_version": "16.0",
+        "bytes": 9126,
+        "sha256": "189cd54cb1ad2951518ea182c4ff7a0cc71162afa7d3a594c9ab33d26f848acc",
+        "owned_process_closed": true
+      }
+    },
+    {
+      "tool": "read_cells",
+      "input": {
+        "workbook": "updated.xlsx",
+        "address": "B2:C2"
+      },
+      "output": {
+        "file": "updated.xlsx",
+        "sheet": "Data",
+        "address": "B2:C2",
+        "values": [
+          [
+            9.1,
+            "=1+1"
+          ]
+        ],
+        "excel_version": "16.0",
+        "truncated_cells": 0,
+        "owned_process_closed": true
+      }
+    }
+  ],
+  "rejected_inputs": [
+    {
+      "tool": "create_workbook",
+      "input": {
+        "output": "sample.xlsx",
+        "values": [
+          [
+            "overwrite"
+          ]
+        ]
+      }
+    },
+    {
+      "tool": "read_cells",
+      "input": {
+        "workbook": "../sample.xlsx",
+        "address": "A1"
+      }
+    },
+    {
+      "tool": "read_cells",
+      "input": {
+        "workbook": "sample.xlsx",
+        "address": "A1:Z1000"
+      }
+    },
+    {
+      "tool": "write_cells_copy",
+      "input": {
+        "workbook": "sample.xlsx",
+        "output": "new.xlsx",
+        "start_cell": "A1",
+        "values": [
+          [
+            1
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      }
+    }
+  ],
+  "source_hash_unchanged": true,
+  "formula_like_input_stored_as_literal": true,
+  "owned_process_cleanup_confirmed_each_call": true,
+  "not_tested": [
+    "Other Office versions",
+    "Untrusted workbooks",
+    "Concurrent external workspace writers",
+    "Formula or macro workbooks",
+    "Remote HTTP deployment"
+  ],
+  "unsupported": [
+    "PDF export is not exposed. A development probe failed on this host's print-layout backend and then timed out; the recorded owned process was closed. No printer configuration was changed."
+  ]
+}

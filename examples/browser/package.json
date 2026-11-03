@@ -1,0 +1,8 @@
+{
+  "name": "mcp-anything-browser-example",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=20"},
+  "dependencies": {"playwright-core": "1.62.1"}
+}
