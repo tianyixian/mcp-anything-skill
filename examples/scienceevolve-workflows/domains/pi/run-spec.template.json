@@ -1,0 +1,73 @@
+{
+  "version": "0.1.0",
+  "domain": "pi",
+  "task_id": null,
+  "targets": [
+    {
+      "property": null,
+      "unit": null,
+      "direction": null,
+      "hard_threshold": null,
+      "test_method": null,
+      "test_conditions": null
+    }
+  ],
+  "material_form": null,
+  "allowed_material_routes": null,
+  "chemical_space": {
+    "dianhydrides": null,
+    "diamines": null,
+    "allowed_component_counts": null,
+    "composition_grid": null,
+    "additives": null,
+    "exclusions": null,
+    "monomer_pool_path": "inputs/pi/monomers.csv"
+  },
+  "constraints": {
+    "processability": null,
+    "solvents": null,
+    "procurement_budget": null,
+    "synthesis_evidence": null,
+    "rules_path": "inputs/pi/rules.json"
+  },
+  "evidence": {
+    "measurements_path": "inputs/pi/measurements.csv",
+    "sources_path": "inputs/pi/sources",
+    "search_scope": null,
+    "search_queries": null,
+    "authorized_databases": null
+  },
+  "candidate_acceptance": {
+    "minimum_valid_unique_formulations": 10000,
+    "maximum_target_formulations": 100000,
+    "count_after_constraints_and_deduplication": true
+  },
+  "model_acceptance": {
+    "source_grouping": "paper_and_experiment_family",
+    "structure_family_holdout": true,
+    "fixed_test_split_path": null,
+    "metric_thresholds": null,
+    "uncertainty_coverage_requirement": null,
+    "applicability_domain_rule": null
+  },
+  "mechanistic_simulation": false,
+  "simulation": {
+    "target_property": null,
+    "protocol_path": null,
+    "forcefield_path": null,
+    "forcefield_validation_path": null,
+    "compute_endpoint": null,
+    "allow_forcefield_training": false
+  },
+  "budgets": {
+    "maximum_search_rounds": null,
+    "maximum_model_revisions": null,
+    "maximum_candidate_batches": null,
+    "maximum_forcefield_rounds": null,
+    "single_job_timeout_seconds": null,
+    "maximum_retries": null,
+    "total_compute_budget": null
+  },
+  "outputs_dir": "outputs/pi",
+  "notes": "这是待填写模板。null 表示尚未提供，不能默认为已满足。当前无实验数据、单体池、模型或科研推荐；候选数量要求保留原始门槛。"
+}

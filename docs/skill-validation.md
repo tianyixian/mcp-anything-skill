@@ -1,6 +1,15 @@
-# MCP Anything Skill 0.4.3 — validation
+# MCP Anything Skill 0.4.4 — validation
 
-Validation performed on 2026-11-05. Local Windows host, Python 3.13.5. The reusable skill is 0.4.3; the LAMMPS adapter remains 0.2.0. Previous [0.4.2](https://github.com/tianyixian/mcp-anything-skill/blob/v0.4.2/docs/skill-validation.md), [0.4.1](https://github.com/tianyixian/mcp-anything-skill/blob/v0.4.1/docs/skill-validation.md), [0.4.0](https://github.com/tianyixian/mcp-anything-skill/blob/v0.4.0/docs/skill-validation.md) and [0.3.0](https://github.com/tianyixian/mcp-anything-skill/blob/v0.3.0/docs/skill-validation.md) records retain their original scope.
+Validation performed on 2026-11-06. Local Windows host, Python 3.13.5. The reusable skill is 0.4.4; the LAMMPS adapter remains 0.2.0. Previous [0.4.3](https://github.com/tianyixian/mcp-anything-skill/blob/v0.4.3/docs/skill-validation.md), [0.4.2](https://github.com/tianyixian/mcp-anything-skill/blob/v0.4.2/docs/skill-validation.md), [0.4.1](https://github.com/tianyixian/mcp-anything-skill/blob/v0.4.1/docs/skill-validation.md), [0.4.0](https://github.com/tianyixian/mcp-anything-skill/blob/v0.4.0/docs/skill-validation.md) and [0.3.0](https://github.com/tianyixian/mcp-anything-skill/blob/v0.3.0/docs/skill-validation.md) records retain their original scope.
+
+## Public workflow recipes
+
+The release adds three sanitized ScienceEvolve recipes for PVDF wet spinning, functional
+PI screening and self-healing binder development. Their catalog and JSON contracts pass
+the public-file checks in `examples/scienceevolve-workflows/test_catalog.py`. This verifies
+the recipe structure and publication boundary; it does not claim that an external MCP
+service, a target ScienceEvolve instance, a scientific model or a laboratory experiment
+was run.
 
 ## Input contract evidence
 

@@ -2,7 +2,7 @@
 
 **Give your agent a software name, installation path or website, and the task you need. Get useful MCP tools and evidence that they work.**
 
-[简体中文](README.zh-CN.md) · [Install](docs/skill-install.md) · [Examples](examples) · [Validation](docs/skill-validation.md)
+[简体中文](README.zh-CN.md) · [Install](docs/skill-install.md) · [Examples](examples) · [Workflow catalog](docs/workflow-catalog.md) · [Validation](docs/skill-validation.md)
 
 MCP Anything is an agent skill for turning existing software into tested MCP integrations. Source code is optional. The agent locates the target, chooses a supported API, command, scripting/desktop interface or browser workflow, implements useful operations, and checks their real results. GitHub repositories remain one supported starting point.
 
@@ -60,8 +60,10 @@ Name lookup covers `PATH` and bounded Windows App Paths registrations. Unresolve
 | [Browser](examples/browser) | List and create notes through a web UI | Node, Playwright Core, browser, Python and MCP SDK | Real browser against a local demo app; see example validation |
 | [SQLite](examples/sqlite) | Discover tables, inspect columns, preview bounded rows | Python 3.11+, MCP SDK; SQLite ships with Python | Real temporary database, actual MCP calls, read-only and input checks |
 | [LAMMPS](adapters/lammps/README.md) | Run a small LJ simulation; submit, poll, cancel and read artifacts | Separately installed LAMMPS; MPI/runtime requirements vary | Real Windows/Linux engine tests, stdio, platform HTTP and client reconnection |
+| [ScienceEvolve workflows](examples/scienceevolve-workflows) | Import PVDF, functional PI and self-healing binder workflow configurations | ScienceEvolve/SCION-AR runtime and user-supplied research inputs | Configuration and offline preflight evidence only; scientific runs and experiments remain blocked |
+| [ScienceEvolve recipes](examples/scienceevolve-workflows) | Map PVDF, functional PI and self-healing binder research stages to MCP boundaries | Real target services and scientific inputs must be supplied by the user | Public sanitized workflow contracts; import/preflight evidence only |
 
-The converter skill is **0.4.3**; the LAMMPS adapter remains **0.2.0**. These examples cover specific operations, not all applications or arbitrary GUI workflows. REA's recorded AgentEnv bundles answer from captured evidence; they are not proof of live application access. A small LJ simulation validates the LAMMPS integration, not polymer Tg predictions. Its shared HTTP service does not provide per-user job isolation.
+The converter skill is **0.4.4**; the LAMMPS adapter remains **0.2.0**. These examples cover specific operations, not all applications or arbitrary GUI workflows. REA's recorded AgentEnv bundles answer from captured evidence; they are not proof of live application access. A small LJ simulation validates the LAMMPS integration, not polymer Tg predictions. Its shared HTTP service does not provide per-user job isolation.
 
 Completion follows the user's requested operations: reading a model cannot complete a requested solve. The [operation gate](skills/mcp-anything/references/operation-acceptance.md) checks pinned call reports and outcome artifacts; the [wheel checker](skills/mcp-anything/references/verification.md) detects stale Python code in a release. The stdio checker has been exercised with SDK 1.30.0 and 2.3.0 in separate environments.
 

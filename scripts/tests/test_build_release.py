@@ -52,7 +52,7 @@ def test_skill_release_needs_no_adapter_or_wheel(tmp_path):
     root = skill_source(tmp_path)
     output = tmp_path / "release"
     result = builder().build_releases(root, output, "skill")
-    filename = "mcp-anything-skill-0.4.3.zip"
+    filename = "mcp-anything-skill-0.4.4.zip"
     assert set(result) == {filename}
     assert not (root / "adapters").exists()
     archive_path = output / filename
@@ -80,9 +80,9 @@ def test_full_release_has_independent_versions_and_excludes_runtime(tmp_path):
     output = tmp_path / "release"
     result = builder().build_releases(root, output)
     assert set(result) == {
-        "mcp-anything-0.4.3.zip", "mcp-anything-skill-0.4.3.zip", "lammps-mcp-0.2.0.zip",
+        "mcp-anything-0.4.4.zip", "mcp-anything-skill-0.4.4.zip", "lammps-mcp-0.2.0.zip",
     }
-    with zipfile.ZipFile(output / "mcp-anything-0.4.3.zip") as archive:
+    with zipfile.ZipFile(output / "mcp-anything-0.4.4.zip") as archive:
         names = set(archive.namelist())
         assert {"README.zh-CN.md", "CHANGELOG.md", "examples/cli/server.py"} <= names
         assert "packages/lammps_mcp-0.2.0-py3-none-any.whl" in names
@@ -99,7 +99,7 @@ def test_repeat_build_is_identical_and_does_not_bundle_its_output(tmp_path):
     first = release.build_releases(root, output)
     second = release.build_releases(root, output)
     assert first == second
-    with zipfile.ZipFile(output / "mcp-anything-0.4.3.zip") as archive:
+    with zipfile.ZipFile(output / "mcp-anything-0.4.4.zip") as archive:
         assert not any(name.startswith("docs/generated-packages/") for name in archive.namelist())
 
 

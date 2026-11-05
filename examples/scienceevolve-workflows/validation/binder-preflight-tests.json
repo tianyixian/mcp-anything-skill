@@ -1,0 +1,17 @@
+{
+  "version": "0.1.1",
+  "scope": "shared preflight implementation behavior; no scientific result validation",
+  "unit_tests": {
+    "passed": 11,
+    "failed": 0
+  },
+  "domain": "binder",
+  "checks": [
+    "empty input remains needs_input",
+    "input format does not certify scientific success",
+    "path escape rejected",
+    "simulation does not become authorized by enabling a flag",
+    "optional mechanistic calculation cannot block experimental review"
+  ],
+  "reference": "tests/test_preflight.py in project source"
+}

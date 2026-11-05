@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.4 — Public science workflow recipes
+
+- Add sanitized ScienceEvolve recipes for PVDF wet spinning, functional PI screening and self-healing binder development.
+- Publish a machine-readable capability map that separates discovered MCP surfaces, ordinary Python nodes, human handoffs and blocked simulation prerequisites.
+- Record workflow import/preflight evidence without uploading original research attachments, internal deployment paths, credentials or commercial installers.
+
 ## 0.4.3 — Input contract evidence
 
 - Require multi-file software projects to record file roles, formats and versions before treating an input as valid.

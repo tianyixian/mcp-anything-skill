@@ -2,7 +2,7 @@
 
 **给 Agent 软件名称、安装路径或网址，说明要做什么，让它完成 MCP 接入并验证结果。**
 
-[English](README.md) · [安装说明](docs/skill-install.md) · [轻量示例](examples/sqlite) · [验证记录](docs/skill-validation.md)
+[English](README.md) · [安装说明](docs/skill-install.md) · [轻量示例](examples/sqlite) · [工作流目录](docs/workflow-catalog.md) · [验证记录](docs/skill-validation.md)
 
 MCP Anything 是一套给编程 Agent 使用的 skill：找到目标软件，选择可用接口，编写 MCP 适配器，安装运行，最后检查真实结果。无需先提供 GitHub 仓库；已安装的程序、桌面应用和网页也可以作为起点。
 
@@ -52,10 +52,12 @@ python skills/mcp-anything/scripts/discover_target.py https://example.com/app --
 | [网页笔记](examples/browser) | 通过真实浏览器查看、创建笔记 | 网页操作接入；当前验收对象是本地演示网页 |
 | [SQLite](examples/sqlite) | 只读查看表、字段和受限行数的数据 | 想快速试用、不想安装大型软件的人 |
 | [LAMMPS](adapters/lammps/README.zh-CN.md) | 分子动力学小算例、任务查询、取消和结果文件 | 需要接入科研计算或其他长任务的人 |
+| [ScienceEvolve 工作流](examples/scienceevolve-workflows) | 导入 PVDF、功能 PI、自愈合粘结剂三条材料工作流 | 需要 ScienceEvolve/SCION-AR 运行环境和真实输入资料 | 只验证配置与离线预检；科研运行和实验仍需用户提供并单独验收 |
+| [ScienceEvolve 工作流配方](examples/scienceevolve-workflows) | 把 PVDF、功能 PI、自愈合粘结剂流程映射到 MCP 边界 | 需要自己提供实际服务和科研输入的人 |
 
 这些例子只证明列出的具体功能。REA 从录制数据导出的环境也不等于已接通原软件，需要另行验证真实执行。各案例依赖与验收情况见[支持范围](docs/software-support.md)。
 
-Skill 版本为 **0.4.3**，LAMMPS 适配器保持 **0.2.0**。LAMMPS 历史 Windows/Linux 和平台 HTTP 验证记录继续保留；小算例不代表材料性质或聚合物 Tg 已完成科学验证，共享服务也没有按用户隔离任务。
+Skill 版本为 **0.4.4**，LAMMPS 适配器保持 **0.2.0**。LAMMPS 历史 Windows/Linux 和平台 HTTP 验证记录继续保留；小算例不代表材料性质或聚合物 Tg 已完成科学验证，共享服务也没有按用户隔离任务。材料科学工作流配方只包含公开边界和预检证据，不代表已经完成实验或科学推荐。
 
 新版按用户要求的每项操作判断完成：读取模型成功，不能代替求解成功。[操作验收工具](skills/mcp-anything/references/operation-acceptance.md)核对调用记录、文件哈希和结果断言；[wheel 检查工具](skills/mcp-anything/references/verification.md)核对打包代码与源码。MCP 协议检查器已在独立环境实测 SDK 1.30.0 和 2.3.0，避免把客户端版本差异当成软件故障。
 

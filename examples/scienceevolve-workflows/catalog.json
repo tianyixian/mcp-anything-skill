@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "kind": "mcp-anything-workflow-catalog",
+  "scope": "public_sanitized_recipes",
+  "status_vocabulary": [
+    "discovered",
+    "implemented",
+    "verified",
+    "blocked",
+    "out_of_mcp_scope"
+  ],
+  "entries": [
+    {
+      "id": "pvdf-wet-spinning",
+      "workflow": "PVDF wet spinning",
+      "recipe": "workflows/pvdf.workflow.json",
+      "purpose": "Review evidence and data, audit an existing model, and prepare a constrained human experiment handoff.",
+      "mcp_capabilities": [
+        "literature_search",
+        "pdf_and_table_extraction",
+        "optional_literature_library"
+      ],
+      "python_nodes": [
+        "tabular_validation",
+        "spectra_and_curve_processing",
+        "grouped_model_audit",
+        "plotting_and_report_export"
+      ],
+      "human_handoffs": [
+        "spinning_and_drawing",
+        "instrument_measurements",
+        "sample_and_batch_mapping"
+      ],
+      "workflow_status": "verified",
+      "mcp_status": "discovered",
+      "scientific_status": "blocked",
+      "evidence_scope": "Configuration import and missing-input preflight only; no new experiment or material claim."
+    },
+    {
+      "id": "functional-pi-screening",
+      "workflow": "Functional PI monomer screening",
+      "recipe": "workflows/pi.workflow.json",
+      "purpose": "Trace sample evidence, verify monomer identity, review candidates and produce uncertainty-aware recommendation cards.",
+      "mcp_capabilities": [
+        "literature_search",
+        "pdf_and_table_extraction",
+        "compound_identity_lookup",
+        "optional_curve_digitization",
+        "optional_literature_library"
+      ],
+      "python_nodes": [
+        "structure_normalization",
+        "candidate_enumeration",
+        "grouped_model_validation",
+        "uncertainty_and_applicability_review",
+        "report_export"
+      ],
+      "human_handoffs": [
+        "ambiguous_structure_review",
+        "synthesis_and_testing_feasibility",
+        "experimental_confirmation"
+      ],
+      "workflow_status": "verified",
+      "mcp_status": "discovered",
+      "scientific_status": "blocked",
+      "evidence_scope": "Configuration import and missing-input preflight only; no validated candidate or property prediction."
+    },
+    {
+      "id": "self-healing-binder",
+      "workflow": "Self-healing binder development",
+      "recipe": "workflows/binder.workflow.json",
+      "purpose": "Organize literature and experiment files for binder, silicon-anode, and sulfur-cathode comparisons.",
+      "mcp_capabilities": [
+        "literature_search",
+        "pdf_and_table_extraction",
+        "supplier_and_sds_lookup",
+        "optional_literature_library"
+      ],
+      "python_nodes": [
+        "unit_and_missingness_checks",
+        "curve_and_control_comparison",
+        "statistics_and_plotting",
+        "report_export"
+      ],
+      "human_handoffs": [
+        "materials_preparation",
+        "electrochemical_and_mechanical_testing",
+        "raw_file_and_protocol_upload"
+      ],
+      "workflow_status": "verified",
+      "mcp_status": "discovered",
+      "scientific_status": "blocked",
+      "evidence_scope": "Configuration import and missing-input preflight only; no binder performance result."
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "literature_search",
+      "candidate_software": [
+        "OpenAlex",
+        "Crossref"
+      ],
+      "boundary": "Reuse an available MCP or documented API; preserve query, date, sources and coverage gaps.",
+      "status": "discovered",
+      "acceptance": "Known paper, empty result, pagination and bounded result count."
+    },
+    {
+      "id": "pdf_and_table_extraction",
+      "candidate_software": [
+        "MinerU"
+      ],
+      "boundary": "Use submit/status/result for long extraction jobs and retain page/table locations.",
+      "status": "discovered",
+      "acceptance": "Real permitted PDF, page and table spot-check, explicit failure state."
+    },
+    {
+      "id": "compound_identity_lookup",
+      "candidate_software": [
+        "PubChem"
+      ],
+      "boundary": "Return source, CID, canonical structure and ambiguity; never infer a structure from a name alone.",
+      "status": "discovered",
+      "acceptance": "Known compound, no match and ambiguous query."
+    },
+    {
+      "id": "optional_literature_library",
+      "candidate_software": [
+        "Zotero"
+      ],
+      "boundary": "Use only when an authorized group library exists; otherwise keep a provenance file list.",
+      "status": "discovered",
+      "acceptance": "Read a permitted item and preserve attachment/source metadata."
+    },
+    {
+      "id": "optional_curve_digitization",
+      "candidate_software": [
+        "WebPlotDigitizer"
+      ],
+      "boundary": "Human-assisted export with calibration evidence; do not assume an unattended API.",
+      "status": "discovered",
+      "acceptance": "Reopen the exported project and compare calibrated points with the source figure."
+    },
+    {
+      "id": "optional_simulation",
+      "candidate_software": [
+        "Packmol",
+        "LAMMPS",
+        "CP2K",
+        "DeePMD-kit",
+        "DP-GEN",
+        "OVITO"
+      ],
+      "boundary": "Enable only after structures, force fields, protocol, budget and scientific acceptance criteria exist.",
+      "status": "blocked",
+      "acceptance": "Real small case, invalid input, timeout/cancel, reconnect and domain-specific result assertion."
+    },
+    {
+      "id": "ordinary_python_analysis",
+      "candidate_software": [
+        "pandas",
+        "RDKit",
+        "scikit-learn",
+        "LightGBM",
+        "Optuna",
+        "SQLite",
+        "Plotly"
+      ],
+      "boundary": "Use local analysis nodes for cleaning, descriptors, modeling, validation, plotting and export.",
+      "status": "out_of_mcp_scope",
+      "acceptance": "Normal unit and integration tests for the analysis code."
+    }
+  ],
+  "publication_limits": [
+    "The catalog contains no original research attachments, private paths, credentials, deployment addresses or proprietary installers.",
+    "Commercial YJK and ANSYS case materials are maintained separately and are not claimed as public examples here.",
+    "A verified protocol or workflow import does not establish a scientific conclusion."
+  ]
+}

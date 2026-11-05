@@ -1,0 +1,141 @@
+{
+  "checked_at": "2026-11-03T08:04:39.409Z",
+  "scope": "configuration-only",
+  "node_version": "v24.13.0",
+  "validators": {
+    "sdk": {
+      "package": "@scion-ar/sdk",
+      "version": "0.1.1",
+      "source": "src/config.ts",
+      "source_sha256": "b6ea9c359ff6aeccf4932c6706722246af2dd90de8970f707a1e837e4fd46778"
+    },
+    "web": {
+      "package": "@scion-ar/server",
+      "version": "0.1.0",
+      "source": "src/workflow-import.ts",
+      "source_sha256": "4783329cad2761f8ebf9867ea1ba5b4654bc520d14dfc16676bc7921e229a4cd"
+    }
+  },
+  "workflows": [
+    {
+      "file": "workflows/binder.workflow.json",
+      "checks": {
+        "json": {
+          "status": "PASS"
+        },
+        "web": {
+          "status": "PASS",
+          "validator_version": "0.1.0",
+          "agent_count": 7,
+          "resolved_models": [
+            "nex-agi/Nex-N2-Pro"
+          ]
+        },
+        "sdk": {
+          "status": "PASS",
+          "validator_version": "0.1.1",
+          "agent_count": 7,
+          "resolved_models": [
+            "nex-agi/Nex-N2-Pro"
+          ]
+        }
+      },
+      "sha256": "b78d96a71fb108fe39ea4a65b58db59ef2b5b2f5a311a5ba4955a97991a93b6a",
+      "name": "自愈合粘结剂：材料、硅负极与硫正极验证交接",
+      "agents_with_omitted_model": [
+        "main",
+        "intake",
+        "evidence",
+        "analysis",
+        "proposal",
+        "gate",
+        "report"
+      ]
+    },
+    {
+      "file": "workflows/pi.workflow.json",
+      "checks": {
+        "json": {
+          "status": "PASS"
+        },
+        "web": {
+          "status": "PASS",
+          "validator_version": "0.1.0",
+          "agent_count": 7,
+          "resolved_models": [
+            "nex-agi/Nex-N2-Pro"
+          ]
+        },
+        "sdk": {
+          "status": "PASS",
+          "validator_version": "0.1.1",
+          "agent_count": 7,
+          "resolved_models": [
+            "nex-agi/Nex-N2-Pro"
+          ]
+        }
+      },
+      "sha256": "7ece5dd89ddbdbed8e23153fb76056d367954571ded0990ef8f5e12ad835e5f8",
+      "name": "功能 PI：证据、筛选与候选核查",
+      "agents_with_omitted_model": [
+        "main",
+        "intake",
+        "evidence",
+        "analysis",
+        "proposal",
+        "gate",
+        "report"
+      ]
+    },
+    {
+      "file": "workflows/pvdf.workflow.json",
+      "checks": {
+        "json": {
+          "status": "PASS"
+        },
+        "web": {
+          "status": "PASS",
+          "validator_version": "0.1.0",
+          "agent_count": 7,
+          "resolved_models": [
+            "nex-agi/Nex-N2-Pro"
+          ]
+        },
+        "sdk": {
+          "status": "PASS",
+          "validator_version": "0.1.1",
+          "agent_count": 7,
+          "resolved_models": [
+            "nex-agi/Nex-N2-Pro"
+          ]
+        }
+      },
+      "sha256": "11529ab54e53b432eaa4fe9402b366b61e5717e2731f17e0deb1258ca9aa43c1",
+      "name": "PVDF 湿纺：证据、模型与实验交接",
+      "agents_with_omitted_model": [
+        "main",
+        "intake",
+        "evidence",
+        "analysis",
+        "proposal",
+        "gate",
+        "report"
+      ]
+    }
+  ],
+  "passed": true,
+  "notes": [
+    "No Agent or scientific calculation was executed; no gateway connectivity was tested.",
+    "Omitted models resolve to the installed parser's default. Select an available model and gateway before running.",
+    "Web import validates a preview; launching its editable copy uses the Web runtime's scheduling rules.",
+    "Prompt-based review gates are not a deterministic scientific authorization or correctness guarantee."
+  ],
+  "post_public_sanitization": {
+    "checked_at": "2026-11-05T17:35:43.383165Z",
+    "checks": {
+      "json_parse": "PASS",
+      "agent_count": "PASS"
+    },
+    "note": "Workflow JSON was re-parsed after removing source-document references. The historical Web/SDK parser checks below do not imply a target-runtime Agent run or scientific validation."
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "schema_version": "0.1.1",
+  "domain": "binder",
+  "project": "self-healing-binder",
+  "target": null,
+  "source_files": [],
+  "current_research_stage": "design",
+  "mechanistic_simulation": false,
+  "max_rework_rounds": 2,
+  "execution_mode": "human_experiment_file_handoff",
+  "material_routes": {
+    "cs_route_optional": true,
+    "selected_routes": null,
+    "polymer_or_precursor_identity": null,
+    "dynamic_connection_design": null,
+    "aqueous_solution_evidence": null,
+    "uniform_mixing_evidence": null,
+    "reproducible_film_preparation": null,
+    "cs_specification_if_used": null,
+    "acid_pH_concentration_if_cs_used": null,
+    "mixing_order_if_cs_used": null
+  },
+  "processing": {
+    "forbidden_solvents": [
+      "NMP"
+    ],
+    "full_lab_forbidden_list": null,
+    "raw_materials_and_additives": null,
+    "solvents_used": null,
+    "supplier_sds_sources": [],
+    "approved_sop": null
+  },
+  "inputs": {
+    "measurements_csv": "inputs/binder/measurements.csv",
+    "papers_directory": "inputs/binder/sources",
+    "raw_data_directory": null,
+    "formulation_records": null,
+    "experiment_log": null
+  },
+  "matched_controls": {
+    "intact": null,
+    "damaged_unhealed": null,
+    "healed": null,
+    "thermal_and_soak_history": null,
+    "unmodified_cs_if_used": null,
+    "conventional_binder": null,
+    "pre_modification_or_pre_composite": null,
+    "independent_batch_count": null
+  },
+  "target_media": {
+    "silicon": {
+      "solvents": null,
+      "salt": null,
+      "additives": null,
+      "temperature_C": null,
+      "soak_time": null,
+      "soak_time_unit": null
+    },
+    "sulfur": {
+      "solvents": null,
+      "salt": null,
+      "additives": null,
+      "temperature_C": null,
+      "soak_time": null,
+      "soak_time_unit": null,
+      "polysulfide_contact_protocol": null
+    }
+  },
+  "healing_protocol": {
+    "damage_method": null,
+    "measurement_type": null,
+    "temperature_C": null,
+    "duration": null,
+    "duration_unit": null,
+    "contact_method": null,
+    "external_pressure": null,
+    "external_pressure_unit": null,
+    "repair_cycles": null,
+    "recovery_ratio_definition": null
+  },
+  "silicon_electrode": {
+    "silicon_identity": null,
+    "conductive_additive": null,
+    "binder_ratio": null,
+    "mass_loading": null,
+    "mass_loading_unit": null,
+    "processing_conditions": null,
+    "cell_protocol": null
+  },
+  "sulfur_electrode": {
+    "host_identity": null,
+    "conductive_additive": null,
+    "sulfur_content": null,
+    "remaining_pore_volume": null,
+    "sulfur_loading": null,
+    "sulfur_loading_unit": null,
+    "binder_ratio": null,
+    "electrolyte_to_sulfur_ratio": null,
+    "electrolyte_to_sulfur_unit": null,
+    "lithium_anode_conditions": null,
+    "cell_protocol": null
+  },
+  "gate_thresholds": {
+    "G3_recovery": null,
+    "G4_medium_stability_and_healing": null,
+    "G5_silicon_processing_and_wet_adhesion": null,
+    "G6_silicon_performance_and_repeatability": null,
+    "G7_sulfur_medium_and_polysulfide_contact": null,
+    "G8_sulfur_performance": null,
+    "criteria_sources": null,
+    "approved_by": null
+  },
+  "budgets": {
+    "maximum_candidates": null,
+    "maximum_experimental_batches": null,
+    "material_budget": null,
+    "budget_unit": null,
+    "maximum_search_rounds": null
+  },
+  "human_handoff": {
+    "responsible_experimenter": null,
+    "raw_file_export_formats": null,
+    "return_directory": "inputs/binder/raw",
+    "instrument_control_verified": false,
+    "real_experiments_completed": false
+  },
+  "outputs_dir": "outputs/binder",
+  "notes": "空模板不含实验结果。阈值按具体材料与实验条件确认；微观机理、模拟、SEM及原位表征不作为主流程门槛。",
+  "basic_material_confirmation": {
+    "synthesis_or_modification_involved": null,
+    "confirmation_method": null,
+    "evidence_files": [],
+    "commercial_identity_or_sds_files": [],
+    "note": "涉及合成时保留适用的基本结构确认；不要求分子级机理证明。"
+  }
+}

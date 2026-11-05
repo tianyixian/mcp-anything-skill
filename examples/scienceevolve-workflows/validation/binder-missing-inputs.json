@@ -1,0 +1,20 @@
+{
+  "status": "needs_input",
+  "input_hash": {},
+  "version": "0.1.1",
+  "results": {
+    "stage": "analysis",
+    "scientific_acceptance": false,
+    "row_count": 0,
+    "missing_inputs": [
+      "inputs/binder/run-spec.json",
+      "inputs/binder/measurements.csv"
+    ],
+    "invalid_inputs": []
+  },
+  "evidence": [],
+  "warnings": [
+    "预检只核对文件、结构和基本追溯字段；不验证数值、化学合理性、许可、模型性能或候选真实性。"
+  ],
+  "next_step": "修正格式或补充列出的资料。"
+}

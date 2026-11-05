@@ -1,0 +1,13 @@
+test_format_ready_is_review_not_scientific_success (test_preflight.PreflightTests.test_format_ready_is_review_not_scientific_success) ... ok
+test_intake_can_precede_data_collection (test_preflight.PreflightTests.test_intake_can_precede_data_collection) ... ok
+test_malformed_spec_is_failure (test_preflight.PreflightTests.test_malformed_spec_is_failure) ... ok
+test_missing_columns_rejected (test_preflight.PreflightTests.test_missing_columns_rejected) ... ok
+test_no_inputs_never_succeeds (test_preflight.PreflightTests.test_no_inputs_never_succeeds) ... ok
+test_simulation_not_implicitly_authorized (test_preflight.PreflightTests.test_simulation_not_implicitly_authorized) ... ok
+test_source_path_escape_rejected (test_preflight.PreflightTests.test_source_path_escape_rejected) ... ok
+test_template_and_empty_csv_need_input (test_preflight.PreflightTests.test_template_and_empty_csv_need_input) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.063s
+
+OK

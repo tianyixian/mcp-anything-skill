@@ -2,7 +2,7 @@
 
 Repository: https://github.com/tianyixian/mcp-anything-skill
 
-The converter is **MCP Anything**, installed as `mcp-anything`. The current project and skill release is 0.4.3; the unchanged LAMMPS adapter uses 0.2.0. Release notes and GitHub Actions results identify what has actually been published and tested.
+The converter is **MCP Anything**, installed as `mcp-anything`. The current project and skill release is 0.4.4; the unchanged LAMMPS adapter uses 0.2.0. Release notes and GitHub Actions results identify what has actually been published and tested.
 
 ## Repeatable release
 
@@ -22,6 +22,6 @@ The independently developed `gabrielekarra/mcp-anything` project is credited in 
 
 ## Scope of claims
 
-This release provides an agent skill, executable helpers, a read-only SQLite example, and a LAMMPS adapter with retained real-engine evidence. The skill requires the agent to implement software-specific behavior. It does not promise universal one-click conversion, a comparative benchmark advantage, or scientific validation of material properties. Host-specific UI setup and every possible operating system are not implied by protocol tests.
+This release provides an agent skill, executable helpers, runnable software examples, public ScienceEvolve workflow recipes, and a LAMMPS adapter with retained real-engine evidence. The skill requires the agent to implement software-specific behavior. It does not promise universal one-click conversion, a comparative benchmark advantage, or scientific validation of material properties. Host-specific UI setup and every possible operating system are not implied by protocol tests.
 
 Private chat transcripts, deployment addresses and original research data are not needed to install or evaluate this open-source project and do not belong in its release.
