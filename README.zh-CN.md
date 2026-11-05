@@ -55,7 +55,9 @@ python skills/mcp-anything/scripts/discover_target.py https://example.com/app --
 
 这些例子只证明列出的具体功能。REA 从录制数据导出的环境也不等于已接通原软件，需要另行验证真实执行。各案例依赖与验收情况见[支持范围](docs/software-support.md)。
 
-Skill 版本为 **0.4.0**，LAMMPS 适配器保持 **0.2.0**。LAMMPS 历史 Windows/Linux 和平台 HTTP 验证记录继续保留；小算例不代表材料性质或聚合物 Tg 已完成科学验证，共享服务也没有按用户隔离任务。
+Skill 版本为 **0.4.1**，LAMMPS 适配器保持 **0.2.0**。LAMMPS 历史 Windows/Linux 和平台 HTTP 验证记录继续保留；小算例不代表材料性质或聚合物 Tg 已完成科学验证，共享服务也没有按用户隔离任务。
+
+新版按用户要求的每项操作判断完成：读取模型成功，不能代替求解成功。[操作验收工具](skills/mcp-anything/references/operation-acceptance.md)核对调用记录、文件哈希和结果断言；[wheel 检查工具](skills/mcp-anything/references/verification.md)核对打包代码与源码。MCP 协议检查器已在独立环境实测 SDK 1.30.0 和 2.3.0，避免把客户端版本差异当成软件故障。
 
 ## 与同名项目的关系
 

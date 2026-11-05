@@ -6,6 +6,8 @@ Replace the prompts below with facts from the completed adapter. Remove sections
 
 State the task, tested software version/host, and material limitations in two sentences. Identify the interface used (for example, CLI, vendor scripting or browser automation). Include only verified operations in a ready-to-use recipe; label implemented but unverified capabilities separately.
 
+List every user-requested operation with its completion condition, real upstream component, evidence and status. Keep blocked operations visible. For example, verified model reading does not complete a requested solve; report the overall request incomplete until that solve is verified or the user changes scope.
+
 ## Connect
 
 Give a tested client configuration with the installed executable or deployment URL. Use environment variable names for credentials. List runtime prerequisites and the smallest readiness check. Keep setup/investigation tools separate; state whether REA is needed during normal use. For desktop/browser automation, explain the required session, login setup and ownership of windows/documents without distributing credentials or a browser profile. State which checks only prove the server is alive and which prove the upstream works.

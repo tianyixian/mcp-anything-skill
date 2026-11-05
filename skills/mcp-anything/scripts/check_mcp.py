@@ -14,11 +14,18 @@ arguments, environment, server output, and result values are omitted from the
 report. Exit codes: 0 checks passed, 1 check failed, 2 invalid plan/output.
 timeout_seconds is a session budget, not a hard process wall-clock limit:
 SDK transport cleanup and process termination can take additional time.
+Client compatibility has been exercised with MCP Python SDK 1.30.0 and 2.3.0.
+Use a separate environment for each incompatible dependency set; the checker
+does not upgrade the SDK or the server. SDK-version/protocol metadata is safe
+to retain; sdk_incompatible identifies a client prerequisite problem before
+it can be mistaken for a failed backend operation.
 """
 from __future__ import annotations
 
 import argparse
 import asyncio
+from importlib import metadata
+import inspect
 import json
 import logging
 import math
@@ -33,6 +40,62 @@ CREDENTIAL_KEYS = {
     "env", "authorization", "password", "secret", "token", "access_token",
     "refresh_token", "api_key", "apikey", "client_secret", "headers",
 }
+SDK_HINT = (
+    "Run this checker in an isolated environment with MCP Python SDK 1.30.0 "
+    "or 2.3.0, or adapt and test the client API for the installed SDK. "
+    "Keep the server executable in its own dependency environment."
+)
+
+
+class SdkIncompatible(Exception):
+    """A client API requirement is missing; its reason is a fixed safe code."""
+
+    def __init__(self, issue: str, version: str | None = None):
+        super().__init__(issue)
+        self.version = version
+
+
+def _model_field(model: Any, *names: str) -> str:
+    fields = getattr(model, "model_fields", {})
+    for name in names:
+        if name in fields:
+            return name
+    raise SdkIncompatible("required_model_field_missing")
+
+
+def _load_sdk() -> dict:
+    """Resolve versioned client API names before starting the server."""
+    try:
+        version = metadata.version("mcp")
+    except metadata.PackageNotFoundError:
+        raise SdkIncompatible("sdk_not_installed") from None
+    # Future major APIs must be investigated rather than silently attempted.
+    if not re.fullmatch(r"[12]\.\d+\.\d+(?:[A-Za-z0-9.+-]{0,32})?", version):
+        safe_version = version if re.fullmatch(r"\d+\.\d+\.\d+(?:[A-Za-z0-9.+-]{0,32})?", version) else "unrecognized"
+        raise SdkIncompatible("unsupported_sdk_version", safe_version)
+    try:
+        from mcp import ClientSession, StdioServerParameters, types
+        from mcp.client.stdio import stdio_client
+        if "params" not in inspect.signature(ClientSession.list_tools).parameters:
+            raise SdkIncompatible("list_tools_api_changed")
+        fields = {
+            "protocol": _model_field(types.InitializeResult, "protocol_version", "protocolVersion"),
+            "cursor": _model_field(types.ListToolsResult, "next_cursor", "nextCursor"),
+            "error": _model_field(types.CallToolResult, "is_error", "isError"),
+            "structured": _model_field(types.CallToolResult, "structured_content", "structuredContent"),
+            "schema": _model_field(types.Tool, "input_schema", "inputSchema"),
+        }
+        return {
+            "ClientSession": ClientSession, "StdioServerParameters": StdioServerParameters,
+            "stdio_client": stdio_client, "types": types, "fields": fields,
+            "metadata": {"name": "mcp", "version": version,
+                         "field_style": "snake_case" if fields["error"] == "is_error" else "camelCase"},
+        }
+    except SdkIncompatible as error:
+        error.version = version
+        raise
+    except (ImportError, AttributeError, TypeError, ValueError):
+        raise SdkIncompatible("sdk_client_api_unavailable", version) from None
 
 
 def _credential_free(value: Any) -> bool:
@@ -108,14 +171,12 @@ def matches(actual: Any, expected: Any, *, exact: bool = False) -> bool:
 
 async def check(plan: dict) -> dict:
     """Execute the validated plan and return metadata only, never result content."""
-    from mcp import ClientSession, StdioServerParameters
-    from mcp.client.stdio import stdio_client
-
     validate_plan(plan)
     report = {
         "schema_version": 1, "ok": False, "protocol_connected": False,
         "validation_level": "protocol_only", "tool_count": 0,
         "case_count": len(plan.get("cases", [])), "cases": [],
+        "client_sdk": None, "protocol_version": None,
         "limitations": [
             "Checks only the declared assertions; callers must choose meaningful real-software cases.",
             "No server identity, input, output, credential, or environment values are retained.",
@@ -126,21 +187,37 @@ async def check(plan: dict) -> dict:
     # SDK diagnostics can include malformed server stdout. Keep it out of shared reports.
     logging.disable(logging.CRITICAL)
     try:
-        params = StdioServerParameters(
+        try:
+            sdk = _load_sdk()
+        except SdkIncompatible as error:
+            if error.version:
+                report["client_sdk"] = {"name": "mcp", "version": error.version, "field_style": "unavailable"}
+            report.update(failure="sdk_incompatible", sdk_issue=str(error), hint=SDK_HINT)
+            return report
+        report["client_sdk"] = sdk["metadata"]
+        fields = sdk["fields"]
+        params = sdk["StdioServerParameters"](
             command=plan["command"], args=plan.get("args", []), env=dict(os.environ),
         )
         with open(os.devnull, "w", encoding="utf-8") as errlog:
             async with asyncio.timeout(plan.get("timeout_seconds", 30)):
-                async with stdio_client(params, errlog=errlog) as streams:
-                    async with ClientSession(*streams) as client:
-                        await client.initialize()
+                async with sdk["stdio_client"](params, errlog=errlog) as streams:
+                    async with sdk["ClientSession"](*streams) as client:
+                        initialized = await client.initialize()
                         report["protocol_connected"] = True
+                        protocol = getattr(initialized, fields["protocol"])
+                        # Protocol version originates at the server. Retain only
+                        # a date-shaped value, never arbitrary server text.
+                        report["protocol_version"] = protocol if re.fullmatch(r"\d{4}-\d{2}-\d{2}", protocol) else "unrecognized"
                         names: set[str] = set()
                         cursor = None
                         for _ in range(20):
-                            listed = await client.list_tools(cursor=cursor)
+                            listed = await client.list_tools(params=sdk["types"].PaginatedRequestParams(cursor=cursor))
                             names.update(tool.name for tool in listed.tools)
-                            cursor = listed.nextCursor
+                            if any(not isinstance(getattr(tool, fields["schema"]), dict) for tool in listed.tools):
+                                report["failure"] = "invalid_tool_schema"
+                                return report
+                            cursor = getattr(listed, fields["cursor"])
                             if not cursor:
                                 break
                         else:
@@ -151,20 +228,24 @@ async def check(plan: dict) -> dict:
                             report["failure"] = "required_tool_missing"
                             return report
                         for index, case in enumerate(plan.get("cases", [])):
-                            result = {"index": index, "ok": False}
+                            result = {"index": index, "ok": False, "expect_error": case.get("expect_error", False)}
                             report["cases"].append(result)
                             if case["tool"] not in names:
                                 result["failure"] = "case_tool_missing"
                                 continue
                             response = await client.call_tool(case["tool"], case.get("arguments", {}))
+                            if not isinstance(response, sdk["types"].CallToolResult):
+                                result["failure"] = "unsupported_tool_response"
+                                continue
+                            is_error = getattr(response, fields["error"])
                             if case.get("expect_error", False):
-                                result["ok"] = bool(response.isError)
+                                result["ok"] = bool(is_error)
                                 if not result["ok"]:
                                     result["failure"] = "expected_error_not_returned"
-                            elif response.isError:
+                            elif is_error:
                                 result["failure"] = "unexpected_tool_error"
                             else:
-                                result["ok"] = matches(response.structuredContent, case["expect"], exact=case.get("match") == "exact")
+                                result["ok"] = matches(getattr(response, fields["structured"]), case["expect"], exact=case.get("match") == "exact")
                                 if not result["ok"]:
                                     result["failure"] = "structured_result_mismatch"
                         report["ok"] = all(case["ok"] for case in report["cases"])

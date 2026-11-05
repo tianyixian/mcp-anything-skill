@@ -1,0 +1,70 @@
+{
+  "kind": "sanitized summary of actual local SQLite acceptance, not canonical execution evidence",
+  "sqlite": "3.50.2",
+  "mcp": "1.30.0",
+  "input_hash_unchanged": true,
+  "check_report": {
+    "schema_version": 1,
+    "ok": true,
+    "protocol_connected": true,
+    "validation_level": "declared_calls_checked",
+    "tool_count": 3,
+    "case_count": 1,
+    "cases": [
+      {
+        "index": 0,
+        "ok": true,
+        "expect_error": false
+      }
+    ],
+    "client_sdk": {
+      "name": "mcp",
+      "version": "1.30.0",
+      "field_style": "camelCase"
+    },
+    "protocol_version": "2025-11-25",
+    "limitations": [
+      "Checks only the declared assertions; callers must choose meaningful real-software cases.",
+      "No server identity, input, output, credential, or environment values are retained.",
+      "The session timeout permits additional SDK process-cleanup time; it is not a hard wall-clock limit."
+    ]
+  },
+  "read_only_request": {
+    "schema_version": 1,
+    "complete": true,
+    "operations": [
+      {
+        "id": "list_tables",
+        "status": "verified",
+        "verified": true
+      }
+    ],
+    "limitations": [
+      "Completeness is relative to the listed requests; retain every operation requested by the user.",
+      "Real provenance, component choice and assertion relevance require review; hashes do not establish them.",
+      "No software is executed and no input/output values or blocker text are copied into this summary."
+    ]
+  },
+  "read_and_write_request": {
+    "schema_version": 1,
+    "complete": false,
+    "operations": [
+      {
+        "id": "list_tables",
+        "status": "verified",
+        "verified": true
+      },
+      {
+        "id": "update_row",
+        "status": "blocked",
+        "verified": false,
+        "reason": "requested_operation_incomplete"
+      }
+    ],
+    "limitations": [
+      "Completeness is relative to the listed requests; retain every operation requested by the user.",
+      "Real provenance, component choice and assertion relevance require review; hashes do not establish them.",
+      "No software is executed and no input/output values or blocker text are copied into this summary."
+    ]
+  }
+}

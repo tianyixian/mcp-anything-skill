@@ -1,5 +1,6 @@
 """Real stdio acceptance checks, including results and sanitized failures."""
 import importlib.util
+from importlib import metadata
 import json
 from pathlib import Path
 import subprocess
@@ -17,7 +18,10 @@ spec.loader.exec_module(checker)
 def server(tmp_path):
     target = tmp_path / "server.py"
     target.write_text('''import os
-from mcp.server.fastmcp import FastMCP
+try:
+    from mcp.server.fastmcp import FastMCP
+except ModuleNotFoundError:
+    from mcp.server.mcpserver import MCPServer as FastMCP
 mcp = FastMCP("acceptance-fixture")
 @mcp.tool()
 def add(a: int, b: int) -> dict[str, object]:
@@ -46,6 +50,9 @@ async def test_real_calls_expectations_error_and_environment(server, monkeypatch
     assert report["ok"]
     assert report["validation_level"] == "declared_calls_checked"
     assert report["tool_count"] == 3
+    assert report["client_sdk"]["version"] == metadata.version("mcp")
+    assert report["protocol_version"]
+    assert [case["expect_error"] for case in report["cases"]] == [False, False, True, False]
     serialized = json.dumps(report)
     for private in [server["args"][0], "runtime-only", "MCP_CHECK_TEST_VALUE", "SENSITIVE_SERVER_ERROR", '"sum"']:
         assert private not in serialized
@@ -148,3 +155,87 @@ time.sleep(6)
     assert report["failure"] == "timeout"
     assert report["ok"] is False
     assert result.returncode == 1
+
+
+@pytest.mark.asyncio
+async def test_real_paginated_tools_work_across_sdk_field_styles(tmp_path):
+    server = tmp_path / "paginated_peer.py"
+    server.write_text('''import json, sys
+for line in sys.stdin:
+    request = json.loads(line)
+    if "id" not in request:
+        continue
+    method = request["method"]
+    if method == "initialize":
+        result = {"protocolVersion": request["params"]["protocolVersion"],
+                  "capabilities": {"tools": {}},
+                  "serverInfo": {"name": "two-page-fixture", "version": "1"}}
+    elif method == "tools/list":
+        cursor = request.get("params", {}).get("cursor")
+        if cursor is None:
+            result = {"tools": [{"name": "first", "inputSchema": {"type": "object"}}], "nextCursor": "second-page"}
+        elif cursor == "second-page":
+            result = {"tools": [{"name": "second", "inputSchema": {"type": "object"}}]}
+        else:
+            raise RuntimeError("invalid pagination cursor")
+    elif method == "tools/call":
+        assert request["params"]["name"] == "second"
+        result = {"content": [], "structuredContent": {"page": 2}, "isError": False}
+    else:
+        raise RuntimeError("unexpected method")
+    print(json.dumps({"jsonrpc": "2.0", "id": request["id"], "result": result}), flush=True)
+''', encoding="utf-8")
+    report = await checker.check({
+        "command": sys.executable, "args": [str(server)], "required_tools": ["first", "second"],
+        "cases": [{"tool": "second", "expect": {"page": 2}}],
+    })
+    assert report["ok"] and report["tool_count"] == 2
+    assert report["protocol_connected"] and report["protocol_version"]
+    expected_style = "snake_case" if metadata.version("mcp").startswith("2.") else "camelCase"
+    assert report["client_sdk"]["field_style"] == expected_style
+
+
+@pytest.mark.asyncio
+async def test_future_sdk_stops_before_launching_server(tmp_path, monkeypatch):
+    marker = tmp_path / "started.txt"
+    script = tmp_path / "must_not_start.py"
+    script.write_text(f"from pathlib import Path; Path({str(marker)!r}).write_text('started')", encoding="utf-8")
+    monkeypatch.setattr(checker.metadata, "version", lambda name: "3.0.0")
+    report = await checker.check({"command": sys.executable, "args": [str(script)]})
+    assert report["failure"] == "sdk_incompatible"
+    assert report["sdk_issue"] == "unsupported_sdk_version"
+    assert report["client_sdk"]["version"] == "3.0.0"
+    assert "isolated environment" in report["hint"]
+    assert not marker.exists() and not report["protocol_connected"]
+    assert str(tmp_path) not in json.dumps(report)
+
+
+@pytest.mark.asyncio
+async def test_missing_sdk_is_sanitized_prerequisite_failure(monkeypatch):
+    def missing(name):
+        raise metadata.PackageNotFoundError("PRIVATE_PATH_DO_NOT_REPORT")
+    monkeypatch.setattr(checker.metadata, "version", missing)
+    report = await checker.check({"command": "not-invoked"})
+    assert report["failure"] == "sdk_incompatible"
+    assert report["sdk_issue"] == "sdk_not_installed"
+    assert "PRIVATE_PATH" not in json.dumps(report)
+
+
+@pytest.mark.asyncio
+async def test_changed_client_method_is_not_misreported_as_backend_failure(monkeypatch):
+    from mcp import ClientSession
+    async def changed_list_tools(self):
+        raise AssertionError("must not run")
+    monkeypatch.setattr(ClientSession, "list_tools", changed_list_tools)
+    report = await checker.check({"command": "not-invoked"})
+    assert report["failure"] == "sdk_incompatible"
+    assert report["sdk_issue"] == "list_tools_api_changed"
+    assert report["client_sdk"]["version"] == metadata.version("mcp")
+    assert not report["protocol_connected"]
+
+
+def test_field_aliases_require_an_actual_sdk_model_field():
+    model = type("SnakeModel", (), {"model_fields": {"is_error": object()}})
+    assert checker._model_field(model, "is_error", "isError") == "is_error"
+    with pytest.raises(checker.SdkIncompatible, match="required_model_field_missing"):
+        checker._model_field(model, "structured_content", "structuredContent")

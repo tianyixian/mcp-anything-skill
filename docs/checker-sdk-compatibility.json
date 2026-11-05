@@ -1,0 +1,65 @@
+{
+  "scope": "Actual stdio fixture calls across separate SDK environments; no vendor engine acceptance",
+  "results": [
+    {
+      "client_sdk_version": "1.30.0",
+      "server_sdk_version": "2.3.0",
+      "report": {
+        "schema_version": 1,
+        "ok": true,
+        "protocol_connected": true,
+        "validation_level": "declared_calls_checked",
+        "tool_count": 1,
+        "case_count": 1,
+        "cases": [
+          {
+            "index": 0,
+            "ok": true,
+            "expect_error": false
+          }
+        ],
+        "client_sdk": {
+          "name": "mcp",
+          "version": "1.30.0",
+          "field_style": "camelCase"
+        },
+        "protocol_version": "2025-11-25",
+        "limitations": [
+          "Checks only the declared assertions; callers must choose meaningful real-software cases.",
+          "No server identity, input, output, credential, or environment values are retained.",
+          "The session timeout permits additional SDK process-cleanup time; it is not a hard wall-clock limit."
+        ]
+      }
+    },
+    {
+      "client_sdk_version": "2.3.0",
+      "server_sdk_version": "1.30.0",
+      "report": {
+        "schema_version": 1,
+        "ok": true,
+        "protocol_connected": true,
+        "validation_level": "declared_calls_checked",
+        "tool_count": 1,
+        "case_count": 1,
+        "cases": [
+          {
+            "index": 0,
+            "ok": true,
+            "expect_error": false
+          }
+        ],
+        "client_sdk": {
+          "name": "mcp",
+          "version": "2.3.0",
+          "field_style": "snake_case"
+        },
+        "protocol_version": "2025-11-25",
+        "limitations": [
+          "Checks only the declared assertions; callers must choose meaningful real-software cases.",
+          "No server identity, input, output, credential, or environment values are retained.",
+          "The session timeout permits additional SDK process-cleanup time; it is not a hard wall-clock limit."
+        ]
+      }
+    }
+  ]
+}

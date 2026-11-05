@@ -61,7 +61,9 @@ Name lookup covers `PATH` and bounded Windows App Paths registrations. Unresolve
 | [SQLite](examples/sqlite) | Discover tables, inspect columns, preview bounded rows | Python 3.11+, MCP SDK; SQLite ships with Python | Real temporary database, actual MCP calls, read-only and input checks |
 | [LAMMPS](adapters/lammps/README.md) | Run a small LJ simulation; submit, poll, cancel and read artifacts | Separately installed LAMMPS; MPI/runtime requirements vary | Real Windows/Linux engine tests, stdio, platform HTTP and client reconnection |
 
-The converter skill is **0.4.0**; the LAMMPS adapter remains **0.2.0**. These examples cover specific operations, not all applications or arbitrary GUI workflows. REA's recorded AgentEnv bundles answer from captured evidence; they are not proof of live application access. A small LJ simulation validates the LAMMPS integration, not polymer Tg predictions. Its shared HTTP service does not provide per-user job isolation.
+The converter skill is **0.4.1**; the LAMMPS adapter remains **0.2.0**. These examples cover specific operations, not all applications or arbitrary GUI workflows. REA's recorded AgentEnv bundles answer from captured evidence; they are not proof of live application access. A small LJ simulation validates the LAMMPS integration, not polymer Tg predictions. Its shared HTTP service does not provide per-user job isolation.
+
+Completion follows the user's requested operations: reading a model cannot complete a requested solve. The [operation gate](skills/mcp-anything/references/operation-acceptance.md) checks pinned call reports and outcome artifacts; the [wheel checker](skills/mcp-anything/references/verification.md) detects stale Python code in a release. The stdio checker has been exercised with SDK 1.30.0 and 2.3.0 in separate environments.
 
 See [skill validation](docs/skill-validation.md) for the current reusable-skill checks and [LAMMPS validation](docs/validation.md) for historical engine evidence. Configured CI is distinct from a completed CI run.
 

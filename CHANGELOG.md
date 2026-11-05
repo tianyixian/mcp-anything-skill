@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.1 — Completion follows requested operations
+
+- Define acceptance for each requested operation; keep unresolved operations visible even when protocol or supporting read checks pass. Add a local gate for hash-pinned call reports and outcome assertions, including numerical tolerances.
+- Adapt the stdio checker to tested MCP SDK 1.30.0 and 2.3.0 model fields and pagination APIs. Report client compatibility separately from backend failures and keep conflicting dependency environments independent.
+- Check official MCP coverage and package/entry names before creating adapters. Record large-installer layers, REA provider budgets and incomplete coverage accurately.
+- Clarify persistent-job ownership, child-process cleanup, heartbeat and unknown outcomes. Completion banners or process exit cannot replace upstream-error, artifact and domain-result checks.
+- Add a static pure-Python wheel/source check and run it in CI; retain original analysis evidence separately from sanitized summaries and verify delivered attachment hashes.
+
+These changes improve the reusable skill. They do not claim an ANSYS solve or live access to another commercial application.
+
 ## 0.4.0 — Installed software and websites
 
 - Accept software names, installation paths and websites alongside source repositories; choose an existing MCP, API, CLI or automation interface before UI automation.

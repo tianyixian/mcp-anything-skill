@@ -11,7 +11,11 @@ Turn the user's software capability into tools an agent can actually use. Accept
 
 Identify the target and the task the user wants to accomplish. Use existing context; ask only for an ambiguous target, a missing capability, or a material access constraint. If only a target is given, inspect it and start with a small useful read-only operation. A display name may need resolving to a particular installation or service. Source access is optional.
 
+Retain each requested operation and define what would prove it complete. Supporting work must not replace the request: a real model read can verify reading while a requested solve remains blocked. For multiple operations or a partial delivery, use [operation acceptance](references/operation-acceptance.md) to keep completion tied to the whole request.
+
 Look for an official or maintained MCP integration first and reuse it when it meets the task. Otherwise prefer a documented API, CLI, library, plugin or desktop automation interface. Use browser or desktop UI automation when those interfaces do not cover the operation. Choose by demonstrated capability, not by source availability or programming language.
+
+Before naming a new adapter, check official packages and entry points for conflicts. Validate incompatible SDK/server candidates in separate environments; a checker incompatibility is distinct from an application failure.
 
 For an installed program, unknown software name, or website, read [software discovery](references/software-discovery.md). For the selected execution route, read the relevant [interface recipe](references/interfaces.md). These routes are guidance for implementing adapters; they are not a catalog of automatically supported applications.
 
@@ -45,7 +49,7 @@ Keep scientific inputs, credentials and deployment addresses out of generic exam
 
 Use [verification and release](references/verification.md) for protocol tests, real upstream execution and release evidence. A mock validates control flow, not the software integration. If the engine cannot run, deliver the honest partial status and exact blocker instead of claiming success.
 
-Test observable behavior through the MCP client, including a useful real operation and its expected result. For a write, read the resulting state or inspect the saved artifact; an accepted click/request is insufficient. Separate real execution, fixtures and unavailable cases in the report. When expanding this skill to a new interface class, exercise that class with a small actual software task.
+Test each requested operation through the MCP client against its own expected outcome. For a write, read the resulting state or inspect the saved artifact; an accepted click/request is insufficient. For computation, check upstream errors, actual results and a numerical/domain assertion; completion banners and exit codes alone are insufficient. Separate real execution, fixtures and unavailable cases in the report. When expanding this skill to a new interface class, exercise that class with a small actual software task.
 
 Create an agent-facing usage guide using [the usage-guide template](assets/USAGE.template.md): exact tool inputs, file formats, a tested short recipe, and error recovery. A server's usage guide is distinct from this converter skill. Include only implemented tools and observed outputs.
 

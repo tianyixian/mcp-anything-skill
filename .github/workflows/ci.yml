@@ -69,3 +69,21 @@ jobs:
           SOURCE_DATE_EPOCH: '1793404800'
       - name: Build and verify source archives
         run: python scripts/build_release.py --output dist
+      - name: Compare packaged wheel with tested source
+        run: python skills/mcp-anything/scripts/check_wheel.py adapters/lammps/dist/lammps_mcp-0.2.0-py3-none-any.whl --source-root adapters/lammps/src
+
+  checker-sdk2:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install SDK 2 checker dependencies in a separate job
+        run: python -m pip install mcp==2.3.0 pytest==9.2.0 pytest-asyncio==1.4.1
+      - name: Check actual SDK 2 stdio behavior and evidence helpers
+        run: python -m pytest skills/mcp-anything/tests/test_check_mcp.py skills/mcp-anything/tests/test_assess_operations.py skills/mcp-anything/tests/test_check_wheel.py -ra
