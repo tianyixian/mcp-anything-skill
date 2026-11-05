@@ -8,7 +8,7 @@ from pathlib import Path
 import stat
 import zipfile
 
-VERSION = "0.4.1"
+VERSION = "0.4.2"
 ADAPTER_VERSION = "0.2.0"
 ROOT = Path(__file__).resolve().parents[1]
 EXCLUDED_PARTS = {

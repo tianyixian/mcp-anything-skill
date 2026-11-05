@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.2 — Windows runtime readiness
+
+- Add a Windows readiness gate for partial installations, launcher/application/engine identity, dependency closure, UAC/session requirements and minimal valid inputs.
+- Treat loader failures such as `0xC0000135`, unexpected administrator elevation and no-input solver exits as blockers or diagnostic evidence, not proof that an application is usable.
+- Keep runtime readiness separate from requested-operation verification and prohibit silently substituting extracted binaries, patches or elevated execution.
+
+This release incorporates the Windows installation findings from the YJK 8.1 case. It does not claim that YJK or any other commercial software is universally supported.
+
 ## 0.4.1 — Completion follows requested operations
 
 - Define acceptance for each requested operation; keep unresolved operations visible even when protocol or supporting read checks pass. Add a local gate for hash-pinned call reports and outcome assertions, including numerical tolerances.

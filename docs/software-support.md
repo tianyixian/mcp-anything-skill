@@ -1,12 +1,13 @@
 # Software entry points and evidence
 
-MCP Anything 0.4.0 accepts a software name, installation path, website, database, documented API or source repository and the operation the user wants. It is an agent development workflow. It does not automatically implement every application's features.
+MCP Anything 0.4.2 accepts a software name, installation path, website, database, documented API or source repository and the operation the user wants. It is an agent development workflow. It does not automatically implement every application's features.
 
 ## Routes
 
 | Route | Current implementation | Evidence and limits |
 | --- | --- | --- |
 | Software discovery | `discover_target.py`: PATH lookup, bounded Windows App Paths lookup, bounded directory inventory, URL classification | Never launches the target or fetches a URL. Script launchers, binaries, manifests and runtime markers remain unverified candidates. Missing names require a location; multiple matches require selection. |
+| Windows runtime readiness | `references/windows-readiness.md`: installation, entry-point, dependency, UAC/session and minimal-input gate | A found `.exe`, partial installation, launcher-only start, `0xC0000135`, unexpected elevation or no-input solver exit remains candidate/blocked evidence until the intended runtime and operation are verified. |
 | Installed command-line software | FFmpeg audio inspection and PCM16 WAV-to-FLAC example | Real FFmpeg 9.0.2 MCP calls and lossless decoded sample comparison on Windows. Limited local audio files, not arbitrary FFmpeg options. |
 | Desktop automation API | Excel example through COM in an owned application instance | Requires Windows, desktop Excel and PowerShell 7. Supports bounded create/read/write-copy operations; see the example's actual validation record. PDF export did not complete acceptance on the test host and is not exposed. Does not control an existing personal workbook session. |
 | Browser workflow | Notes UI adapter using Playwright and a dedicated headless browser | A real browser exercises the local demonstration app. This is not verification against arbitrary external sites, personal login sessions, captchas or changing third-party layouts. |
