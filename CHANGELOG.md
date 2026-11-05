@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.3 — Input contract evidence
+
+- Require multi-file software projects to record file roles, formats and versions before treating an input as valid.
+- Classify `input_format_or_version_failure` as a preflight blocker and preserve command, exit, logs and input hashes without claiming solver execution.
+- Record native DLL/runtime/license provenance and reject random DLLs, patches, architecture substitutions and unverified payloads.
+
+This release incorporates the YJK 8.1 official-sample boundary. The sample's `.pre` file is not promoted to a final IDS input by renaming.
+
 ## 0.4.2 — Windows runtime readiness
 
 - Add a Windows readiness gate for partial installations, launcher/application/engine identity, dependency closure, UAC/session requirements and minimal valid inputs.

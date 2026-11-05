@@ -1,6 +1,6 @@
 # Software entry points and evidence
 
-MCP Anything 0.4.2 accepts a software name, installation path, website, database, documented API or source repository and the operation the user wants. It is an agent development workflow. It does not automatically implement every application's features.
+MCP Anything 0.4.3 accepts a software name, installation path, website, database, documented API or source repository and the operation the user wants. It is an agent development workflow. It does not automatically implement every application's features.
 
 ## Routes
 

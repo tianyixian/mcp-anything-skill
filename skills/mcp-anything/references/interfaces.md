@@ -18,7 +18,7 @@ Keep MCP dependencies in an isolated environment. Install the reviewed version, 
 
 ## CLI
 
-Use `subprocess` argument arrays with `shell=False`. Select the executable in operator configuration; do not accept an arbitrary executable or command string from the tool caller. Treat argument injection separately from shell injection: use the upstream end-of-options delimiter where supported, or reject option-like positional values. Limit working paths, execution time and captured output. Prefer machine-readable output over fragile text scraping. Record the real executable version. For long work, use durable submit/status/result/cancel tools rather than holding a single MCP request open.
+Use `subprocess` argument arrays with `shell=False`. Select the executable in operator configuration; do not accept an arbitrary executable or command string from the tool caller. Treat argument injection separately from shell injection: use the upstream end-of-options delimiter where supported, or reject option-like positional values. Validate the vendor input contract and file roles before launching; an extension, path or renamed intermediate file is not enough. Classify format/version rejection as a preflight blocker. Limit working paths, execution time and captured output. Prefer machine-readable output over fragile text scraping. Record the real executable version. For long work, use durable submit/status/result/cancel tools rather than holding a single MCP request open.
 
 ## HTTP and OpenAPI
 

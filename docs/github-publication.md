@@ -2,7 +2,7 @@
 
 Repository: https://github.com/tianyixian/mcp-anything-skill
 
-The converter is **MCP Anything**, installed as `mcp-anything`. The current project and skill release is 0.4.2; the unchanged LAMMPS adapter uses 0.2.0. Release notes and GitHub Actions results identify what has actually been published and tested.
+The converter is **MCP Anything**, installed as `mcp-anything`. The current project and skill release is 0.4.3; the unchanged LAMMPS adapter uses 0.2.0. Release notes and GitHub Actions results identify what has actually been published and tested.
 
 ## Repeatable release
 
