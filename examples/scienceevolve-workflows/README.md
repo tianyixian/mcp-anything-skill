@@ -29,10 +29,9 @@ preflight is not a scientific result.
 
 ## Import and connect tools
 
-The three short `*.workflow.json` files at the package root are public,
-machine-readable capability contracts used by the catalog. Import the matching
-full workflow from `workflows/` into a compatible ScienceEvolve/SCION-AR
-runtime, then copy that domain's `run-spec.template.json` and
+The catalog points to the three full workflow files in `workflows/`.
+Import the matching file into a compatible ScienceEvolve runtime,
+then copy that domain's `run-spec.template.json` and
 `input-columns.csv` into an actual project workspace. Configure the model and
 available gateway in the target runtime. The workflows intentionally leave
 `mcpServers` empty: literature search, PDF parsing, chemical identity lookup,
@@ -45,5 +44,29 @@ prediction, PVDF spinning or binder performance.
 
 See [`catalog.json`](catalog.json) for the machine-readable index and [the workflow catalog](../../docs/workflow-catalog.md) for capability status and claim boundaries. The `validation/` files record configuration and
 preflight checks only; no Agent run or wet-lab experiment is implied.
+
+## Official SDK compatibility
+
+On 2026-11-06, all three public workflow files passed the unchanged official
+`sdk/src/main-config.ts:loadMainWorkflowConfig` at ScienceEvolve commit
+`7c51eb49a53fdcf620badf145c286e12b80e7d3e`. Seven agents, their instructions
+and embedded Skills were preserved; invalid route targets were rejected.
+The [public-file report](validation/official-sdk-validation.json) records the
+SHA256 of each tested Git file (LF line endings). It was generated separately
+from checks of the private handoff packages.
+
+With the official CLI installed, run from this example directory:
+
+```sh
+scievolve workflow validate workflows/pvdf.workflow.json
+scievolve workflow validate workflows/pi.workflow.json
+scievolve workflow validate workflows/binder.workflow.json
+```
+
+The older `validation/workflow-validation.json` retains historical SCION-AR
+Web/SDK results for earlier handoff files. Its hashes do not identify the
+current public JSON. The legacy `validate_workflows.mjs` is not included here
+and does not support the current official SDK layout. The Web project is now
+[ScienceEvolve-server](https://github.com/OpenMOSS/ScienceEvolve-server).
 
 

@@ -14,7 +14,7 @@
 | `domains/pvdf/input-columns.csv` | 空数据表头，保留来源、样品、批次与测量关系 |
 | `domains/pvdf/tool-inventory.md` | 本方向需要的外部工具和不需MCP的工作 |
 | `domains/pvdf/NOTES.md` | 字段含义、输入缺口及原需求行号 |
-| `validation/`、`MANIFEST.json` | 随包验证记录和文件校验值 |
+| `validation/official-sdk-validation.json` | 当前公开工作流的官方SDK校验记录和SHA256 |
 
 ## 使用步骤
 
@@ -38,10 +38,10 @@ python scripts/preflight.py --project pvdf --workspace . --stage analysis
 
 退出码`2`表示缺输入，`1`表示格式错误；`0`只表示基础格式检查完成，仍须领域审查。预检不证明原始值准确、方法可比、模型可靠或配方可执行。
 
-如已有ScienceEvolve／SCION-AR源码及其依赖，可以调用随包验证器检查配置：
+安装官方ScienceEvolve命令行后，在示例根目录复查配置：
 
 ```bash
-node --import <已安装tsx的loader.mjs> scripts/validate_workflows.mjs --sdk-dir <scion-ar-sdk目录> --web-dir <scion-ar-main目录> --json
+scievolve workflow validate workflows/pvdf.workflow.json
 ```
 
 ## 实验与结论边界
@@ -50,6 +50,6 @@ FTIR与XRD不同定义的β比例不直接平均；β相比例、结晶度和压
 
 普通Python完成数据整理、旧模型复现、分组验证及图表；本方向不额外引入LAMMPS、DFT或仪器控制。实际配液、纺丝、后拉伸和表征由实验人员按SOP执行，回传原始数据后再评价冻结预测。旧数据规模、R²或“β≈99.3%”等转述都不是本次验证结果。
 
-已有配置通过本地Web导入器0.1.0和SDK0.1.1解析；共享预检程序此前的8项行为测试通过。这些记录只证明配置与输入处理，未完成目标平台模型全流程或科学实验。**本独立包最终校验以`validation/`内随包记录为准。** `gate`是模型按提示词执行的证据审查，并非保证科学正确的硬门禁。
+2026年11月6日，当前公开JSON通过官方SDK固定提交`7c51eb49a53fdcf620badf145c286e12b80e7d3e`的配置校验，证据见`validation/official-sdk-validation.json`。旧Web/SDK记录只对应历史交付文件，不能用其哈希证明当前公开文件。配置通过不代表目标平台模型全流程或科学实验已经完成；`gate`是模型按提示词执行的软审查。
 
 原始需求材料不随公开示例发布；请在实际项目中提供经过授权的来源文件，并按相对路径和哈希记录。

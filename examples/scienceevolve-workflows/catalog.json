@@ -95,6 +95,15 @@
   ],
   "capabilities": [
     {
+      "id": "supplier_and_sds_lookup",
+      "candidate_software": [
+        "Supplier documentation services"
+      ],
+      "boundary": "Read permitted supplier and SDS documents; retain exact product identity, supplier, document version and source. Require authorized access when login is needed.",
+      "status": "discovered",
+      "acceptance": "Check a known product document, a missing document and an ambiguous product name; verify the returned version and source."
+    },
+    {
       "id": "literature_search",
       "candidate_software": [
         "OpenAlex",

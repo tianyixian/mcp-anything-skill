@@ -1,0 +1,294 @@
+{
+  "checked_at": "2026-11-06T03:21:23.851Z",
+  "upstream": {
+    "repository": "https://github.com/OpenMOSS/ScienceEvolve",
+    "revision": "7c51eb49a53fdcf620badf145c286e12b80e7d3e",
+    "scope": "configuration-compatibility"
+  },
+  "scope": "official SDK configuration validation only; no model, connector or scientific run",
+  "node": "v24.13.0",
+  "validator": "sdk/src/main-config.ts:loadMainWorkflowConfig",
+  "validator_sha256": "ade12bb8031c5a5666b5c290cff5b24183df375f56293063e01bde879e958403",
+  "workflows": [
+    {
+      "domain": "pvdf",
+      "sha256": "d50fe9af0043b8731297572cae339b45d5758280b02c96937479c28446a44b5a",
+      "file": "workflows/pvdf.workflow.json",
+      "source": "public sanitized GitHub workflow; LF bytes",
+      "passed": true,
+      "agent_names": [
+        "main",
+        "intake",
+        "evidence",
+        "analysis",
+        "proposal",
+        "gate",
+        "report"
+      ],
+      "models": [
+        "nex-agi/Nex-N2-Pro"
+      ],
+      "orchestration_schema": 2,
+      "git_enabled": false,
+      "agent_instructions_preserved": true,
+      "skill_definitions_preserved": true,
+      "input_target": {
+        "source": "input",
+        "target": "intake"
+      },
+      "routes": {
+        "intake": [
+          {
+            "target": "gate",
+            "kind": "strong"
+          }
+        ],
+        "evidence": [
+          {
+            "target": "gate",
+            "kind": "strong"
+          }
+        ],
+        "analysis": [
+          {
+            "target": "gate",
+            "kind": "strong"
+          }
+        ],
+        "proposal": [
+          {
+            "target": "gate",
+            "kind": "strong"
+          }
+        ],
+        "report": [
+          {
+            "target": "gate",
+            "kind": "strong"
+          }
+        ],
+        "gate": [
+          {
+            "target": "main",
+            "kind": "strong"
+          }
+        ],
+        "main": [
+          {
+            "target": "intake",
+            "kind": "weak"
+          },
+          {
+            "target": "evidence",
+            "kind": "weak"
+          },
+          {
+            "target": "analysis",
+            "kind": "weak"
+          },
+          {
+            "target": "proposal",
+            "kind": "weak"
+          },
+          {
+            "target": "gate",
+            "kind": "weak"
+          },
+          {
+            "target": "report",
+            "kind": "weak"
+          }
+        ]
+      },
+      "empty_mcp_connections": true,
+      "invalid_agent_rejected": true
+    },
+    {
+      "domain": "pi",
+      "sha256": "2a94e4447350c4f6141df2670a368cc9778a52fb6f16f91203334a3011d662af",
+      "file": "workflows/pi.workflow.json",
+      "source": "public sanitized GitHub workflow; LF bytes",
+      "passed": true,
+      "agent_names": [
+        "main",
+        "intake",
+        "evidence",
+        "analysis",
+        "proposal",
+        "gate",
+        "report"
+      ],
+      "models": [
+        "nex-agi/Nex-N2-Pro"
+      ],
+      "orchestration_schema": 2,
+      "git_enabled": false,
+      "agent_instructions_preserved": true,
+      "skill_definitions_preserved": true,
+      "input_target": {
+        "source": "input",
+        "target": "intake"
+      },
+      "routes": {
+        "intake": [
+          {
+            "target": "gate",
+            "kind": "strong"
+          }
+        ],
+        "evidence": [
+          {
+            "target": "gate",
+            "kind": "strong"
+          }
+        ],
+        "analysis": [
+          {
+            "target": "gate",
+            "kind": "strong"
+          }
+        ],
+        "proposal": [
+          {
+            "target": "gate",
+            "kind": "strong"
+          }
+        ],
+        "report": [
+          {
+            "target": "gate",
+            "kind": "strong"
+          }
+        ],
+        "gate": [
+          {
+            "target": "main",
+            "kind": "strong"
+          }
+        ],
+        "main": [
+          {
+            "target": "intake",
+            "kind": "weak"
+          },
+          {
+            "target": "evidence",
+            "kind": "weak"
+          },
+          {
+            "target": "analysis",
+            "kind": "weak"
+          },
+          {
+            "target": "proposal",
+            "kind": "weak"
+          },
+          {
+            "target": "gate",
+            "kind": "weak"
+          },
+          {
+            "target": "report",
+            "kind": "weak"
+          }
+        ]
+      },
+      "empty_mcp_connections": true,
+      "invalid_agent_rejected": true
+    },
+    {
+      "domain": "binder",
+      "sha256": "847650effd6d8421bdc872079cab453136fe01fddcaeefecbf820984efd377d2",
+      "file": "workflows/binder.workflow.json",
+      "source": "public sanitized GitHub workflow; LF bytes",
+      "passed": true,
+      "agent_names": [
+        "main",
+        "intake",
+        "evidence",
+        "analysis",
+        "proposal",
+        "gate",
+        "report"
+      ],
+      "models": [
+        "nex-agi/Nex-N2-Pro"
+      ],
+      "orchestration_schema": 2,
+      "git_enabled": false,
+      "agent_instructions_preserved": true,
+      "skill_definitions_preserved": true,
+      "input_target": {
+        "source": "input",
+        "target": "intake"
+      },
+      "routes": {
+        "intake": [
+          {
+            "target": "gate",
+            "kind": "strong"
+          }
+        ],
+        "evidence": [
+          {
+            "target": "gate",
+            "kind": "strong"
+          }
+        ],
+        "analysis": [
+          {
+            "target": "gate",
+            "kind": "strong"
+          }
+        ],
+        "proposal": [
+          {
+            "target": "gate",
+            "kind": "strong"
+          }
+        ],
+        "report": [
+          {
+            "target": "gate",
+            "kind": "strong"
+          }
+        ],
+        "gate": [
+          {
+            "target": "main",
+            "kind": "strong"
+          }
+        ],
+        "main": [
+          {
+            "target": "intake",
+            "kind": "weak"
+          },
+          {
+            "target": "evidence",
+            "kind": "weak"
+          },
+          {
+            "target": "analysis",
+            "kind": "weak"
+          },
+          {
+            "target": "proposal",
+            "kind": "weak"
+          },
+          {
+            "target": "gate",
+            "kind": "weak"
+          },
+          {
+            "target": "report",
+            "kind": "weak"
+          }
+        ]
+      },
+      "empty_mcp_connections": true,
+      "invalid_agent_rejected": true
+    }
+  ],
+  "passed": true
+}

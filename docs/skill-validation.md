@@ -11,6 +11,15 @@ the recipe structure and publication boundary; it does not claim that an externa
 service, a target ScienceEvolve instance, a scientific model or a laboratory experiment
 was run.
 
+Post-release audit on 2026-11-06: the three current public workflow JSON files
+also passed the official ScienceEvolve SDK at commit
+`7c51eb49a53fdcf620badf145c286e12b80e7d3e`. The
+[separate report](../examples/scienceevolve-workflows/validation/official-sdk-validation.json)
+pins their Git-file hashes and checks instruction/Skill preservation and invalid
+route rejection. Historical Web/SCION-AR hashes and private handoff validation
+are not evidence for these public files. This is a source documentation and
+evidence update; the published 0.4.4 archives retain their original contents.
+
 ## Input contract evidence
 
 This release extends the Windows readiness gate to multi-file software inputs. Record each companion file's role and verify the vendor format/version before launching the solver. An extension, existing path, sample file or renamed intermediate is insufficient. An upstream `input_format_or_version_failure` remains a preflight blocker with the command, exit status, logs and input hashes retained; it does not establish solver execution or a failed/successful solve. Native DLL/runtime/license components require source, version, architecture and signature/hash evidence; random DLLs, patches and unverified payloads remain prohibited.

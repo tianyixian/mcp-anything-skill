@@ -14,7 +14,7 @@
 | `domains/pi/input-columns.csv` | 样品级证据空表头 |
 | `domains/pi/tool-inventory.md` | 需要的外部工具、可选计算和普通Python节点 |
 | `domains/pi/NOTES.md` | 字段说明及原需求行号映射 |
-| `validation/`、`MANIFEST.json` | 随包验证记录和文件校验值 |
+| `validation/official-sdk-validation.json` | 当前公开工作流的官方SDK校验记录和SHA256 |
 
 ## 使用步骤
 
@@ -37,10 +37,10 @@ python scripts/preflight.py --project pi --workspace . --stage analysis
 
 退出码`2`表示缺输入，`1`表示格式错误；`0`只表示基础格式检查完成，仍须领域审查。预检不会验证化学可行性、候选新颖性或预测性能。
 
-已有ScienceEvolve／SCION-AR源码和依赖时，可复查配置：
+安装官方ScienceEvolve命令行后，在示例根目录复查配置：
 
 ```bash
-node --import <已安装tsx的loader.mjs> scripts/validate_workflows.mjs --sdk-dir <scion-ar-sdk目录> --web-dir <scion-ar-main目录> --json
+scievolve workflow validate workflows/pi.workflow.json
 ```
 
 ## 科研与工具边界
@@ -51,6 +51,6 @@ node --import <已安装tsx的loader.mjs> scripts/validate_workflows.mjs --sdk-d
 
 普通Python承担RDKit结构处理、候选枚举、建模、验证及出图。机理模拟默认关闭；Packmol仅装填坐标，LAMMPS不自动提供PI拓扑或合格力场。既有LJ演示不等于PI的Tg服务；CP2K、DeePMD-kit和DP-GEN仅为有明确需求与预算后的可选扩展。
 
-已有配置通过本地Web导入器0.1.0和SDK0.1.1解析；共享预检程序此前8项行为测试通过。这不代表目标平台模型全流程、在线工具或科研结论已经通过。**本独立包最终校验以`validation/`内随包记录为准。** `gate`是模型依据证据执行的软审查，不能称为科学正确性硬门禁。
+2026年11月6日，当前公开JSON通过官方SDK固定提交`7c51eb49a53fdcf620badf145c286e12b80e7d3e`的配置校验，证据见`validation/official-sdk-validation.json`。旧Web/SDK记录只对应历史交付文件，不能用其哈希证明当前公开文件。配置通过不代表模型全流程、在线工具或科研结论已经通过；`gate`是模型依据证据执行的软审查。
 
 原始需求材料不随公开示例发布；原文中的目标和接口示例不等于已经实现的能力。

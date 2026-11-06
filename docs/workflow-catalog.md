@@ -30,7 +30,7 @@ The status labels have a narrow meaning:
 
 | Capability | Status for these workflows | Evidence or next check |
 | --- | --- | --- |
-| Workflow JSON import | verified (configuration only) | `examples/scienceevolve-workflows/validation/workflow-validation.json` records JSON, Web and SDK parser checks for all three files |
+| Workflow JSON compatibility | verified (configuration only) | [Official SDK report](../examples/scienceevolve-workflows/validation/official-sdk-validation.json) checks all three public files at commit `7c51eb49a53fdcf620badf145c286e12b80e7d3e`, preserving seven agents and embedded Skills while rejecting invalid route targets |
 | Offline input preflight | implemented and verified | `scripts/preflight.py`; the recorded tests cover missing inputs, malformed specs, path escape and traceability fields |
 | Literature metadata/full text | discovered | Use an available OpenAlex/Crossref or institutional search/full-text service; verify one known paper and retain DOI/page evidence |
 | PDF/table extraction | discovered | MinerU is a candidate backend; verify page-localized text/table output on an authorized PDF |
@@ -44,6 +44,13 @@ The status labels have a narrow meaning:
 “Verified” for the first two rows means configuration or offline behavior only.
 It does not mean that a ScienceEvolve model run, online connector, simulation
 campaign or experiment has completed.
+
+The older `workflow-validation.json` concerns earlier handoff configurations;
+its hashes do not match the current public files. For current SDK validation,
+use `scievolve workflow validate workflows/<domain>.workflow.json` from the
+example directory. The former local SCION-AR source checker is not shipped in
+this public example. ScienceEvolve's current entry is `sdk/src/main-config.ts`;
+its Web implementation lives in OpenMOSS/ScienceEvolve-server.
 
 ## Public release boundary
 

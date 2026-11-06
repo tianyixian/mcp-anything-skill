@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Verify all three public materials workflows with the official ScienceEvolve SDK at a fixed commit; retain matching file hashes, preserved instructions/Skills and rejected-route evidence.
+- Correct stale workflow/validator references and distinguish current public-file validation from historical handoff records. Published 0.4.4 archives are unchanged.
+
 ## 0.4.4 — Public science workflow recipes
 
 - Add sanitized ScienceEvolve recipes for PVDF wet spinning, functional PI screening and self-healing binder development.
